@@ -11,6 +11,7 @@ Built with `react-static`.
 
 # To-Do
 - [x] Add basic DPR calculations.
+- [x] Add mobile breakpoints so it's usable on small screens.
 - [ ] Add support for critical hits/misses.
 - [ ] Add support for independent accuracy and damage values per attack.
 - [ ] Add ability to compare multiple DPRs.

@@ -38,13 +38,13 @@ const Calculator: React.FC = () => {
       sx={{
         height: "100%",
         width: "100%",
-        margin: 3,
+        padding: 3,
         "& h5": {
           marginTop: 3,
         },
       }}
     >
-      <Grid item xs={3}>
+      <Grid item xs={12} md={3}>
         <Grid item>
           <Typography variant="h4">Inputs</Typography>
         </Grid>
@@ -52,7 +52,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12}>
             <Typography variant="h5">Accuracy</Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <NumericInput
               label="To-Hit Modifiers"
               name="to-hit"
@@ -60,7 +60,7 @@ const Calculator: React.FC = () => {
               onChange={setToHitMods}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <NumericInput
               label="Target AC"
               name="ac"
@@ -76,7 +76,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12}>
             <Typography variant="h5">Damage</Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <NumericInput
               label="Number of Attacks"
               name="attacks"
@@ -84,7 +84,7 @@ const Calculator: React.FC = () => {
               onChange={setAttacks}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <NumericInput
               label="Damage Modifiers"
               value={damageMods}
@@ -96,7 +96,7 @@ const Calculator: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={9}>
+      <Grid item xs={12} md={9}>
         <Grid item>
           <Typography variant="h4">Outputs</Typography>
         </Grid>
