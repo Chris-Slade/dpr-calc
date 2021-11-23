@@ -1,21 +1,17 @@
-# React-Static - TypeScript Template
+# Description
 
-To use this template, run `react-static create` and use the `typescript` template.
+This repo contains a DPR calculator for D&D 5th edition. DPR is the average damage per round a character does.
 
-## Path Aliases for Absolute Imports
+# Scripts
 
-`react-static-typescript-plugin` supports path aliases [since v3.1](https://github.com/react-static/react-static/pull/963#issuecomment-455596728). It has been set up in this template.
+- `yarn start` - Runs the development server.
+- `yarn build` - Builds `/dist`.
 
-```js
-// tsconfig.json
-{
-  // ...
-    "paths": {
-      "@components/*": ["src/components/*"]
-    },
-  // ...
-}
+Built with `react-static`.
 
-// this works in your React app
-import FancyDiv from '@components/FancyDiv'
-```
+# To-Do
+- [x] Add basic DPR calculations.
+- [ ] Add support for critical hits/misses.
+- [ ] Add support for independent accuracy and damage values per attack.
+- [ ] Add ability to compare multiple DPRs.
+- [ ] Add graphing ability for DPR at various levels or against various ACs.
