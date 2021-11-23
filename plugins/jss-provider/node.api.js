@@ -1,4 +1,4 @@
-import { ServerStyleSheets } from "@mui/material/styles";
+import { ServerStyleSheets } from "@mui/styles";
 
 export default () => ({
   beforeRenderToHtml: (App, { meta }) => {
