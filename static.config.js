@@ -2,7 +2,13 @@ import axios from "axios";
 import path from "path";
 
 export default {
-  entry: path.join(__dirname, "src", "index.tsx"),
+  siteRoot: "https://chris-slade.github.io/",
+  assetsPath: "/",
+  basePath: "dpr-calc",
+  entry: "index.tsx",
+  getSiteData: () => ({
+    title: "DPR Calculator",
+  }),
   getRoutes: async () => {
     return [];
   },

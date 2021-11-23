@@ -14,7 +14,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <React.Suspense fallback={<em>Loading...</em>}>
-          <Router>
+          <Router type="hash">
             <Routes path="*" />
           </Router>
         </React.Suspense>
