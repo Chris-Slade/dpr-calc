@@ -1,5 +1,1 @@
-export interface Post {
-  body: string
-  id: number
-  title: string
-}
+export { default as Advantage } from "./Advantage";
