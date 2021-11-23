@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Grid, Typography } from "@mui/material";
-import NumericInput from "./NumericInput";
-import Advantage from "types/Advantage";
-import AdvantageSelect from "./AdvantageSelect";
-import DamageDice from "types/DamageDice";
-import DamageDiceInput from "./DamageDiceInput";
 import chanceToHit from "services/chanceToHit";
 import damagePerAttack from "services/damagePerAttack";
+import Advantage from "types/Advantage";
+import DamageDice from "types/DamageDice";
+import AdvantageSelect from "./AdvantageSelect";
+import DamageDiceInput from "./DamageDiceInput";
+import Number from "./Number";
+import NumericInput from "./NumericInput";
 
 const { useState } = React;
 
@@ -105,12 +106,16 @@ const Calculator: React.FC = () => {
             <Typography variant="h5">Accuracy</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography>Chance to hit: {accuracy.toHit}</Typography>
             <Typography>
-              Chance to hit (advantage): {accuracy.toHitWithAdvantage}
+              Chance to hit: <Number value={accuracy.toHit} />
             </Typography>
             <Typography>
-              Chance to hit (disadvantage): {accuracy.toHitWithDisadvantage}
+              Chance to hit (advantage):{" "}
+              <Number value={accuracy.toHitWithAdvantage} />
+            </Typography>
+            <Typography>
+              Chance to hit (disadvantage):{" "}
+              <Number value={accuracy.toHitWithDisadvantage} />
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -118,15 +123,15 @@ const Calculator: React.FC = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography>
-              Damage per round: {accuracy.toHit * rawDamage}
+              Damage per round: <Number value={accuracy.toHit * rawDamage} />
             </Typography>
             <Typography>
               Damage per round (advantage):{" "}
-              {accuracy.toHitWithAdvantage * rawDamage}
+              <Number value={accuracy.toHitWithAdvantage * rawDamage} />
             </Typography>
             <Typography>
               Damage per round (disadvantage):{" "}
-              {accuracy.toHitWithDisadvantage * rawDamage}
+              <Number value={accuracy.toHitWithDisadvantage * rawDamage} />
             </Typography>
           </Grid>
           <Grid item xs={12}>

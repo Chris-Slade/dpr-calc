@@ -5,13 +5,10 @@ export default {
   siteRoot: "https://chris-slade.github.io/",
   assetsPath: "/",
   basePath: "dpr-calc",
+  devBasePath: "/",
   entry: "index.tsx",
-  getSiteData: () => ({
-    title: "DPR Calculator",
-  }),
-  getRoutes: async () => {
-    return [];
-  },
+  getSiteData: () => ({}),
+  getRoutes: async () => [],
   plugins: [
     "react-static-plugin-typescript",
     [
