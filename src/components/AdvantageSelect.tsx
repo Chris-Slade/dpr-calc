@@ -1,17 +1,15 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   FormControl,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
-} from "@mui/material";
-import Value from "types/Advantage";
+} from '@mui/material';
+import Value from 'types/Advantage';
+import { ControlledInputProps } from 'types';
 
-interface Props {
-  value: Value;
-  onChange: (value: Value) => unknown;
-}
+interface Props extends ControlledInputProps<Value> {}
 
 const AdvantageDisadvantage: React.FC<Props> = ({ value, onChange }) => {
   return (
@@ -23,7 +21,7 @@ const AdvantageDisadvantage: React.FC<Props> = ({ value, onChange }) => {
         name="radio-buttons-group"
         row
         value={value}
-        onChange={(e) => onChange(e.target.value as Value)}
+        onChange={e => onChange(e.target.value as Value)}
       >
         <FormControlLabel value="normal" control={<Radio />} label="Normal" />
         <FormControlLabel

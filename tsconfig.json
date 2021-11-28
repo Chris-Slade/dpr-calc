@@ -17,9 +17,11 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "components": ["src/components/index"],
       "components/*": ["src/components/*"],
-      "containers/*": ["src/containers/*"],
+      "services": ["src/services/index"],
       "services/*": ["src/services/*"],
+      "types": ["types/index"],
       "types/*": ["types/*"]
     },
     "lib": ["dom", "es2015", "es2016"]

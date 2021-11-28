@@ -12,6 +12,9 @@ Built with `react-static`.
 # To-Do
 - [x] Add basic DPR calculations.
 - [x] Add mobile breakpoints so it's usable on small screens.
+- [ ] Add support for automatic PB/attack progression by level, % of baseline display
+- [ ] Add graphs in automatic PB mode
+- [ ] Fix bug with clearing number inputs
 - [ ] Add support for critical hits/misses.
 - [ ] Add support for independent accuracy and damage values per attack.
 - [ ] Add ability to compare multiple DPRs.

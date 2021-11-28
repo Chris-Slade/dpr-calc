@@ -1,22 +1,23 @@
-import * as React from "react";
-import { Grid, Typography } from "@mui/material";
-import chanceToHit from "services/chanceToHit";
-import damagePerAttack from "services/damagePerAttack";
-import Advantage from "types/Advantage";
-import DamageDice from "types/DamageDice";
-import AdvantageSelect from "./AdvantageSelect";
-import DamageDiceInput from "./DamageDiceInput";
-import Number from "./Number";
-import NumericInput from "./NumericInput";
+import * as React from 'react';
+import { Grid, Typography } from '@mui/material';
+import {
+  AttackProgressionSelect,
+  BaAttackCheckbox,
+  DamageDiceInput,
+  Number,
+  NumericInput,
+} from 'components';
+import { chanceToHit, damagePerAttack, profBonus } from 'services';
+import { AttackProgression, DamageDice, NumericInputValue } from 'types';
 
 const { useState } = React;
 
 const Calculator: React.FC = () => {
-  const [targetAC, setTargetAC] = useState<number>(0);
-  const [toHitMods, setToHitMods] = useState<number>(0);
-  const [advantage, setAdvantage] = useState<Advantage>("normal");
+  const [targetAC, setTargetAC] = useState<NumericInputValue>(0);
+  const [toHitMods, setToHitMods] = useState<NumericInputValue>(0);
+  const [level, setLevel] = useState<NumericInputValue>(1);
   // TODO Allow setting damage independently across attacks
-  const [attacks, setAttacks] = useState<number>(0);
+  const [attacks, setAttacks] = useState<NumericInputValue>(0);
   const [damageDice, setDamageDice] = useState<DamageDice>({
     d4: 0,
     d6: 0,
@@ -25,9 +26,14 @@ const Calculator: React.FC = () => {
     d12: 0,
     d20: 0,
   });
-  const [damageMods, setDamageMods] = useState<number>(0);
+  const [damageMods, setDamageMods] = useState<NumericInputValue>(0);
+  const [attackProgression, setAttackProgression] =
+    useState<AttackProgression>('');
+  const [baAttack, setBaAttack] = useState(false);
 
-  const accuracy = chanceToHit(toHitMods, targetAC);
+  const pb = profBonus(level);
+
+  const accuracy = chanceToHit(toHitMods + pb, targetAC);
 
   // TODO Handle crits
   const rawDamage = attacks * damagePerAttack(damageDice, damageMods);
@@ -37,10 +43,10 @@ const Calculator: React.FC = () => {
       container
       spacing={3}
       sx={{
-        height: "100%",
-        width: "100%",
+        height: '100%',
+        width: '100%',
         padding: 3,
-        "& h5": {
+        '& h5': {
           marginTop: 3,
         },
       }}
@@ -63,14 +69,44 @@ const Calculator: React.FC = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <NumericInput
+              label={`Level/CR (PB = ${pb})`}
+              name="level"
+              value={level}
+              onChange={setLevel}
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                  max: 30,
+                },
+              }}
+              disabled={Boolean(attackProgression)}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <NumericInput
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                },
+              }}
               label="Target AC"
               name="ac"
               value={targetAC}
               onChange={setTargetAC}
             />
           </Grid>
-          <Grid item xs={12}>
-            <AdvantageSelect value={advantage} onChange={setAdvantage} />
+          <Grid item xs={8}>
+            <AttackProgressionSelect
+              value={attackProgression}
+              onChange={setAttackProgression}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <BaAttackCheckbox
+              value={baAttack}
+              onChange={setBaAttack}
+              disabled={!attackProgression}
+            />
           </Grid>
         </Grid>
         <Grid container spacing={3}>
@@ -107,14 +143,10 @@ const Calculator: React.FC = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography>
-              Chance to hit: <Number value={accuracy.toHit} />
-            </Typography>
-            <Typography>
-              Chance to hit (advantage):{" "}
-              <Number value={accuracy.toHitWithAdvantage} />
-            </Typography>
-            <Typography>
-              Chance to hit (disadvantage):{" "}
+              Chance to hit: <Number value={accuracy.toHit} /> <br />
+              Chance to hit (advantage):{' '}
+              <Number value={accuracy.toHitWithAdvantage} /> <br />
+              Chance to hit (disadvantage):{' '}
               <Number value={accuracy.toHitWithDisadvantage} />
             </Typography>
           </Grid>
@@ -124,13 +156,10 @@ const Calculator: React.FC = () => {
           <Grid item xs={12}>
             <Typography>
               Damage per round: <Number value={accuracy.toHit * rawDamage} />
-            </Typography>
-            <Typography>
-              Damage per round (advantage):{" "}
-              <Number value={accuracy.toHitWithAdvantage * rawDamage} />
-            </Typography>
-            <Typography>
-              Damage per round (disadvantage):{" "}
+              <br />
+              Damage per round (advantage):{' '}
+              <Number value={accuracy.toHitWithAdvantage * rawDamage} /> <br />
+              Damage per round (disadvantage):{' '}
               <Number value={accuracy.toHitWithDisadvantage * rawDamage} />
             </Typography>
           </Grid>
