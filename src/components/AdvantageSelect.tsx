@@ -11,7 +11,7 @@ import { ControlledInputProps } from 'types';
 
 interface Props extends ControlledInputProps<Value> {}
 
-const AdvantageDisadvantage: React.FC<Props> = ({ value, onChange }) => {
+const AdvantageSelect: React.FC<Props> = ({ value, onChange }) => {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Advantage/Disadvantage</FormLabel>
@@ -39,4 +39,4 @@ const AdvantageDisadvantage: React.FC<Props> = ({ value, onChange }) => {
   );
 };
 
-export default AdvantageDisadvantage;
+export default AdvantageSelect;

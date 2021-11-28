@@ -1,12 +1,17 @@
-import DamageDice from "types/DamageDice";
-import Die from "types/Die";
-import dieAverage from "./dieAverage";
+import DamageDice from 'types/DamageDice';
+import Die from 'types/Die';
+import dieAverage from './dieAverage';
 
-export default (damageDice: DamageDice, damageMods: number) => {
+export default (
+  chanceToHit: number,
+  chanceToCrit: number,
+  damageDice: DamageDice,
+  damageMods: number
+) => {
   const diceDamage = (Object.keys(damageDice) as Die[]).reduce(
     (acc, cur) => acc + dieAverage(cur) * damageDice[cur],
     0
   );
 
-  return diceDamage + damageMods;
+  return chanceToHit * (diceDamage + damageMods) + chanceToCrit * diceDamage;
 };

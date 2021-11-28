@@ -1,14 +1,19 @@
 import * as React from 'react';
 import { Grid, Typography } from '@mui/material';
 import {
-  AttackProgressionSelect,
-  BaAttackCheckbox,
+  AdvantageSelect,
   DamageDiceInput,
   Number,
   NumericInput,
 } from 'components';
-import { chanceToHit, damagePerAttack, profBonus } from 'services';
-import { AttackProgression, DamageDice, NumericInputValue } from 'types';
+import {
+  calculateBaseline,
+  chanceToHit,
+  damagePerAttack,
+  profBonus,
+} from 'services';
+import { Advantage, DamageDice, NumericInputValue } from 'types';
+import chanceToCrit from 'services/chanceToCrit';
 
 const { useState } = React;
 
@@ -16,6 +21,7 @@ const Calculator: React.FC = () => {
   const [targetAC, setTargetAC] = useState<NumericInputValue>(0);
   const [toHitMods, setToHitMods] = useState<NumericInputValue>(0);
   const [level, setLevel] = useState<NumericInputValue>(1);
+  const [advantage, setAdvantage] = useState<Advantage>('normal');
   // TODO Allow setting damage independently across attacks
   const [attacks, setAttacks] = useState<NumericInputValue>(0);
   const [damageDice, setDamageDice] = useState<DamageDice>({
@@ -27,16 +33,19 @@ const Calculator: React.FC = () => {
     d20: 0,
   });
   const [damageMods, setDamageMods] = useState<NumericInputValue>(0);
-  const [attackProgression, setAttackProgression] =
-    useState<AttackProgression>('');
-  const [baAttack, setBaAttack] = useState(false);
 
   const pb = profBonus(level);
 
-  const accuracy = chanceToHit(toHitMods + pb, targetAC);
+  const accuracy = chanceToHit(toHitMods + pb, targetAC, advantage);
 
-  // TODO Handle crits
-  const rawDamage = attacks * damagePerAttack(damageDice, damageMods);
+  const critChance = chanceToCrit(20 /* TODO */, advantage);
+
+  const damage =
+    attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
+
+  const baseline = calculateBaseline(level, targetAC, advantage);
+
+  console.log(chanceToCrit(20, 'normal')); // XXX
 
   return (
     <Grid
@@ -79,7 +88,6 @@ const Calculator: React.FC = () => {
                   max: 30,
                 },
               }}
-              disabled={Boolean(attackProgression)}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -95,18 +103,8 @@ const Calculator: React.FC = () => {
               onChange={setTargetAC}
             />
           </Grid>
-          <Grid item xs={8}>
-            <AttackProgressionSelect
-              value={attackProgression}
-              onChange={setAttackProgression}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <BaAttackCheckbox
-              value={baAttack}
-              onChange={setBaAttack}
-              disabled={!attackProgression}
-            />
+          <Grid item xs={12}>
+            <AdvantageSelect value={advantage} onChange={setAdvantage} />
           </Grid>
         </Grid>
         <Grid container spacing={3}>
@@ -143,11 +141,8 @@ const Calculator: React.FC = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography>
-              Chance to hit: <Number value={accuracy.toHit} /> <br />
-              Chance to hit (advantage):{' '}
-              <Number value={accuracy.toHitWithAdvantage} /> <br />
-              Chance to hit (disadvantage):{' '}
-              <Number value={accuracy.toHitWithDisadvantage} />
+              Chance to hit: <Number value={accuracy} /> <br />
+              Baseline: <Number value={baseline.accuracy} />
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -155,18 +150,17 @@ const Calculator: React.FC = () => {
           </Grid>
           <Grid item xs={12}>
             <Typography>
-              Damage per round: <Number value={accuracy.toHit * rawDamage} />
-              <br />
-              Damage per round (advantage):{' '}
-              <Number value={accuracy.toHitWithAdvantage * rawDamage} /> <br />
-              Damage per round (disadvantage):{' '}
-              <Number value={accuracy.toHitWithDisadvantage * rawDamage} />
+              Damage per round: <Number value={damage} />
+            </Typography>
+            <Typography>
+              Baseline: <Number value={baseline.damage} />
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography component="p" variant="subtitle2">
-              Note: Critical hits/misses, crit damage, and independent
-              accuracy/damage per attack are WIP.
+              The accuracy and damage baseline is equal to a warlock who begins
+              with 16 CHA, increases it to 18 at 4th level and 20 at 8th level,
+              and attacks using Eldritch Blast with Agonizing Blast.
             </Typography>
           </Grid>
         </Grid>
