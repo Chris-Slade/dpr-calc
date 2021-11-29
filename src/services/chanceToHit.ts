@@ -4,10 +4,10 @@ import { chanceToCrit, chanceToCritMiss, clamp } from 'services';
 export default (
   toHitMods: number,
   targetAC: number,
-  critOn: number,
+  critThreshold: number,
   advantage: Advantage = 'normal'
 ) => {
-  const critHitChance = chanceToCrit(critOn, 'normal');
+  const critHitChance = chanceToCrit(critThreshold, 'normal');
   const critMissChance = chanceToCritMiss('normal');
 
   const toHit = clamp(

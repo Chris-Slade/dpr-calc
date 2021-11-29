@@ -92,4 +92,22 @@ describe('chance to hit', () => {
       );
     });
   });
+
+  describe('advantage out of bounds (enemy AC), crit on 19', () => {
+    it('should be 0.19', () => {
+      expect(chanceToHit(0, 50, 19, 'advantage')).to.be.approximately(
+        0.19,
+        EPSILON
+      );
+    });
+  });
+
+  describe('disadvantage out of bounds (enemy AC), crit on 19', () => {
+    it('should be 0.01', () => {
+      expect(chanceToHit(0, 50, 19, 'disadvantage')).to.be.approximately(
+        0.01,
+        EPSILON
+      );
+    });
+  });
 });

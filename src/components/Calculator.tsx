@@ -35,19 +35,15 @@ const Calculator: React.FC = () => {
   });
   const [damageMods, setDamageMods] = useState<NumericInputValue>(0);
   const [proficient, setProficient] = useState<boolean>(true);
+  const [critThreshold, setCritThreshold] = useState<number>(20);
 
   const pb = profBonus(level);
 
-  const critChance = chanceToCrit(20 /* TODO */, advantage);
+  const critChance = chanceToCrit(critThreshold, advantage);
 
   const toHit = toHitMods + (proficient ? pb : 0);
 
-  const accuracy = chanceToHit(
-    toHit,
-    targetAC,
-    20, // TODO
-    advantage
-  );
+  const accuracy = chanceToHit(toHit, targetAC, critThreshold, advantage);
 
   const damage =
     attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
@@ -119,6 +115,19 @@ const Calculator: React.FC = () => {
           </Grid>
           <Grid item xs={12}>
             <AdvantageSelect value={advantage} onChange={setAdvantage} />
+          </Grid>
+          <Grid item xs={12}>
+            <NumericInput
+              label="Crit Threshold"
+              InputProps={{
+                inputProps: {
+                  min: 1,
+                  max: 20,
+                },
+              }}
+              value={critThreshold}
+              onChange={setCritThreshold}
+            />
           </Grid>
         </Grid>
         <Grid container spacing={3}>
