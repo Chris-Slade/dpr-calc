@@ -24,6 +24,7 @@ export default (level: number, targetAC: number, advantage: Advantage) => {
   const accuracy = chanceToHit(
     charismaPerLevel(level) + profBonus(level),
     targetAC,
+    20,
     advantage
   );
   const damage =

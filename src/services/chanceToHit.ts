@@ -1,22 +1,25 @@
 import { Advantage } from 'types';
+import { chanceToCrit, chanceToCritMiss, clamp } from 'services';
 
-const clamp = (value: number, min: number, max: number) =>
-  Math.max(Math.min(value, max), min);
-
-// TODO: Handle nat 1s and 20s properly
 export default (
   toHitMods: number,
   targetAC: number,
+  critOn: number,
   advantage: Advantage = 'normal'
 ) => {
-  const toHit = clamp((21 + toHitMods - targetAC) / 20, 0, 1);
-  const toMiss = clamp((targetAC - toHitMods - 1) / 20, 0, 1);
-  const toHitWithAdvantage = 1 - toMiss ** 2;
-  const toHitWithDisadvantage = toHit ** 2;
+  const critHitChance = chanceToCrit(critOn, 'normal');
+  const critMissChance = chanceToCritMiss('normal');
+
+  const toHit = clamp(
+    (21 + toHitMods - targetAC) / 20,
+    critHitChance,
+    1 - critMissChance
+  );
+  const toMiss = 1 - toHit;
 
   return advantage === 'normal'
     ? toHit
     : advantage === 'advantage'
-    ? toHitWithAdvantage
-    : toHitWithDisadvantage;
+    ? 1 - toMiss ** 2
+    : toHit ** 2;
 };

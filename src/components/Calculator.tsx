@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Grid, Typography } from '@mui/material';
 import {
   AdvantageSelect,
+  Checkbox,
   DamageDiceInput,
   Number,
   NumericInput,
@@ -33,19 +34,25 @@ const Calculator: React.FC = () => {
     d20: 0,
   });
   const [damageMods, setDamageMods] = useState<NumericInputValue>(0);
+  const [proficient, setProficient] = useState<boolean>(true);
 
   const pb = profBonus(level);
 
-  const accuracy = chanceToHit(toHitMods + pb, targetAC, advantage);
-
   const critChance = chanceToCrit(20 /* TODO */, advantage);
+
+  const toHit = toHitMods + (proficient ? pb : 0);
+
+  const accuracy = chanceToHit(
+    toHit,
+    targetAC,
+    20, // TODO
+    advantage
+  );
 
   const damage =
     attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
 
   const baseline = calculateBaseline(level, targetAC, advantage);
-
-  console.log(chanceToCrit(20, 'normal')); // XXX
 
   return (
     <Grid
@@ -70,14 +77,6 @@ const Calculator: React.FC = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <NumericInput
-              label="To-Hit Modifiers"
-              name="to-hit"
-              value={toHitMods}
-              onChange={setToHitMods}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <NumericInput
               label={`Level/CR (PB = ${pb})`}
               name="level"
               value={level}
@@ -88,6 +87,21 @@ const Calculator: React.FC = () => {
                   max: 30,
                 },
               }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Checkbox
+              label="Proficient?"
+              value={proficient}
+              onChange={setProficient}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <NumericInput
+              label="To-Hit Modifiers (sans PB)"
+              name="to-hit"
+              value={toHitMods}
+              onChange={setToHitMods}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -140,24 +154,40 @@ const Calculator: React.FC = () => {
             <Typography variant="h5">Accuracy</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography>
-              Chance to hit: <Number value={accuracy} /> <br />
-              Baseline: <Number value={baseline.accuracy} />
-            </Typography>
+            <Number label="Combined + to hit" value={toHit} />
+            <Number
+              label={`Chance to hit AC ${targetAC}`}
+              style="percent"
+              value={accuracy}
+            />
+            <Number
+              label="Baseline chance to hit"
+              style="percent"
+              value={baseline.accuracy}
+            />
+            <Number
+              label="Percent of baseline"
+              style="percent"
+              value={accuracy / baseline.accuracy}
+            />
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h5">Damage</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography>
-              Damage per round: <Number value={damage} />
-            </Typography>
-            <Typography>
-              Baseline: <Number value={baseline.damage} />
-            </Typography>
+            <Number label="Average damage per round" value={damage} />
+            <Number
+              label="Baseline average damage per round"
+              value={baseline.damage}
+            />
+            <Number
+              label="Percentage of baseline"
+              style="percent"
+              value={damage / baseline.damage}
+            />
           </Grid>
           <Grid item xs={12}>
-            <Typography component="p" variant="subtitle2">
+            <Typography component="p" variant="subtitle2" maxWidth="80ch">
               The accuracy and damage baseline is equal to a warlock who begins
               with 16 CHA, increases it to 18 at 4th level and 20 at 8th level,
               and attacks using Eldritch Blast with Agonizing Blast and Hex.

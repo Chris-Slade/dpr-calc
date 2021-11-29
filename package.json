@@ -3,13 +3,14 @@
   "private": true,
   "homepage": "https://chris-slade.github.io/dpr-calc/",
   "scripts": {
-    "start": "react-static start",
+    "start": "cross-env NODE_OPTIONS='--max-http-header-size=32768' react-static start",
     "stage": "react-static build --staging",
     "build": "react-static build",
     "bundle": "react-static bundle",
     "export": "react-static export",
-    "serve": "serve dist -p 3000 -s",
-    "test": "mocha --require ts-node/register ./test/**/*.spec.ts"
+    "serve": "cross-env NODE_OPTIONS='--max-http-header-size=32768' serve dist -p 3000 -s",
+    "test": "mocha --require ts-node/register --require esm --require tsconfig-paths/register ./test/**/*.spec.ts",
+    "pretty": "prettier --write src/**/*.{ts,tsx} test/**/*.{ts,tsx}"
   },
   "dependencies": {
     "@emotion/react": "^11.6.0",
@@ -36,10 +37,13 @@
     "@types/react-dom": "^16.9.11",
     "@types/webpack-env": "^1.16.0",
     "chai": "^4.3.4",
+    "cross-env": "^7.0.3",
+    "esm": "^3.2.25",
     "mocha": "^9.1.3",
     "react-hot-loader": "^4.13.0",
     "serve": "^11.3.2",
     "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.12.0",
     "typescript": "^4.1.5"
   }
 }

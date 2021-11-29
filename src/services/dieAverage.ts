@@ -1,4 +1,4 @@
-import Die from "types/Die";
+import Die from 'types/Die';
 
 const dieMax = (die: Die) => {
   // prettier-ignore

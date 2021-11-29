@@ -21,7 +21,7 @@ const AdvantageSelect: React.FC<Props> = ({ value, onChange }) => {
         name="radio-buttons-group"
         row
         value={value}
-        onChange={e => onChange(e.target.value as Value)}
+        onChange={(e) => onChange(e.target.value as Value)}
       >
         <FormControlLabel value="normal" control={<Radio />} label="Normal" />
         <FormControlLabel
