@@ -160,7 +160,7 @@ const Calculator: React.FC = () => {
             <Typography component="p" variant="subtitle2">
               The accuracy and damage baseline is equal to a warlock who begins
               with 16 CHA, increases it to 18 at 4th level and 20 at 8th level,
-              and attacks using Eldritch Blast with Agonizing Blast.
+              and attacks using Eldritch Blast with Agonizing Blast and Hex.
             </Typography>
           </Grid>
         </Grid>
