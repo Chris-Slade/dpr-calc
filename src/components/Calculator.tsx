@@ -74,6 +74,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12} md={6}>
             <NumericInput
               label={`Level/CR (PB = ${pb})`}
+              title="The level or Challenge Rating (CR) of the attacker, which determines its Proficiency Bonus (PB)."
               name="level"
               value={level}
               onChange={setLevel}
@@ -88,6 +89,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12} md={6}>
             <Checkbox
               label="Proficient?"
+              title="If checked, the attacker's Proficiency Bonus will be included in its modifiers on the attack roll(s)."
               value={proficient}
               onChange={setProficient}
             />
@@ -95,6 +97,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12} md={6}>
             <NumericInput
               label="To-Hit Modifiers (sans PB)"
+              title="Any modifiers to hit besides proficiency bonus, such as your attack modifier, Archery, Sharpshooter, +1/2/3 weapons, etc."
               name="to-hit"
               value={toHitMods}
               onChange={setToHitMods}
@@ -108,6 +111,7 @@ const Calculator: React.FC = () => {
                 },
               }}
               label="Target AC"
+              title="The Armor Class (AC) of the enemy being attacked."
               name="ac"
               value={targetAC}
               onChange={setTargetAC}
@@ -119,6 +123,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12}>
             <NumericInput
               label="Crit Threshold"
+              title="The minimum roll on the d20 needed to get a critical hit."
               InputProps={{
                 inputProps: {
                   min: 1,
@@ -137,6 +142,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12} md={6}>
             <NumericInput
               label="Number of Attacks"
+              title="Total number of attacks the attacker makes during a round."
               name="attacks"
               value={attacks}
               onChange={setAttacks}
@@ -145,6 +151,7 @@ const Calculator: React.FC = () => {
           <Grid item xs={12} md={6}>
             <NumericInput
               label="Damage Modifiers"
+              title="Any modifiers to damage, such as your attack modifier, Sharpshooter, +1/+2/+3 weapons, etc."
               value={damageMods}
               onChange={setDamageMods}
             />
