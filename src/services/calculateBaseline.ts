@@ -1,7 +1,8 @@
 import { Advantage } from 'types';
 import {
-  chanceToHit,
+  cantripAttacks,
   chanceToCrit,
+  chanceToHit,
   damagePerAttack,
   profBonus,
 } from 'services';
@@ -11,9 +12,6 @@ import {
  * 4th level and 20 at 8th level, and uses Eldritch Blast with Agonizing Blast
  * and Hex.
  */
-
-const attacksPerLevel = (level: number) =>
-  level < 5 ? 1 : level < 11 ? 2 : level < 17 ? 3 : 4;
 
 const charismaPerLevel = (level: number) => (level < 4 ? 3 : level < 8 ? 4 : 5);
 
@@ -28,7 +26,7 @@ export default (level: number, targetAC: number, advantage: Advantage) => {
     advantage
   );
   const damage =
-    attacksPerLevel(level) *
+    cantripAttacks(level) *
     damagePerAttack(
       accuracy,
       chanceToCrit(20, advantage),

@@ -17,7 +17,6 @@ const NumericInput: React.FC<Props> = ({ value, onChange, ...rest }) => (
     type="number"
     value={value || ''}
     onChange={(e) => onChange(parse(e.target.value))}
-    sx={{ maxWidth: '200px' }}
     {...rest}
   />
 );

@@ -1,3 +1,5 @@
+export * from './attackProgressions';
+export { default as averageMonsterAC } from './averageMonsterAC';
 export { default as calculateBaseline } from './calculateBaseline';
 export { default as chanceToCrit } from './chanceToCrit';
 export { default as chanceToCritMiss } from './chanceToCritMiss';
