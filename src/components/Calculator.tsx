@@ -15,11 +15,13 @@ import {
 } from 'services';
 import { Advantage, DamageDice, NumericInputValue } from 'types';
 import chanceToCrit from 'services/chanceToCrit';
+import averageMonsterAC from 'services/averageMonsterAC';
 
-const { useState } = React;
+const { useEffect, useState } = React;
 
 const Calculator: React.FC = () => {
   const [targetAC, setTargetAC] = useState<NumericInputValue>(0);
+  const [useAverageAC, setUseAverageAC] = useState<boolean>(false);
   const [toHitMods, setToHitMods] = useState<NumericInputValue>(0);
   const [level, setLevel] = useState<NumericInputValue>(1);
   const [advantage, setAdvantage] = useState<Advantage>('normal');
@@ -49,6 +51,12 @@ const Calculator: React.FC = () => {
     attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
 
   const baseline = calculateBaseline(level, targetAC, advantage);
+
+  useEffect(() => {
+    if (useAverageAC) {
+      setTargetAC(averageMonsterAC(level));
+    }
+  }, [level, useAverageAC]);
 
   return (
     <Grid
@@ -94,7 +102,7 @@ const Calculator: React.FC = () => {
               onChange={setProficient}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <NumericInput
               label="To-Hit Modifiers (sans PB)"
               title="Any modifiers to hit besides proficiency bonus, such as your attack modifier, Archery, Sharpshooter, +1/2/3 weapons, etc."
@@ -115,6 +123,14 @@ const Calculator: React.FC = () => {
               name="ac"
               value={targetAC}
               onChange={setTargetAC}
+              disabled={useAverageAC}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Checkbox
+              label="Use average AC where enemy CR = your level"
+              value={useAverageAC}
+              onChange={setUseAverageAC}
             />
           </Grid>
           <Grid item xs={12}>
