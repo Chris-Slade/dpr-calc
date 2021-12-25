@@ -1,24 +1,26 @@
 import * as React from 'react';
 import {
+  Box,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableRow,
   TableHead,
-  Box,
+  TableRow,
 } from '@mui/material';
 import { Number } from 'components';
 import {
+  applyAdditionalMods,
   calculateBaseline,
   chanceToCrit,
   chanceToHit,
   damagePerAttack,
 } from 'services';
-import { Advantage, DamageDice } from 'types';
+import { AdditionalModValues, Advantage, DamageDice } from 'types';
 
 interface Props {
+  additionalMods: AdditionalModValues;
   advantage: Advantage;
   attacks: number;
   critThreshold: number;
@@ -26,7 +28,7 @@ interface Props {
   damageMods: number;
   level: number;
   targetAC: number;
-  toHitMods: number;
+  attackMods: number;
 }
 
 type Row = { label: string; style: 'decimal' | 'percent'; value: number };
@@ -66,17 +68,23 @@ const Output: React.FC<{ title: string; rows: Row[] }> = ({ title, rows }) => (
 );
 
 const Outputs: React.FC<Props> = ({
+  additionalMods,
   advantage,
+  attackMods: baseAttackMods,
   attacks,
   critThreshold,
   damageDice,
-  damageMods,
+  damageMods: baseDamageMods,
   level,
   targetAC,
-  toHitMods,
 }) => {
+  const [attackMods, damageMods] = applyAdditionalMods(
+    additionalMods,
+    baseAttackMods,
+    baseDamageMods
+  );
   const critChance = chanceToCrit(critThreshold, advantage);
-  const accuracy = chanceToHit(toHitMods, targetAC, critThreshold, advantage);
+  const accuracy = chanceToHit(attackMods, targetAC, critThreshold, advantage);
   const damage =
     attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
   const baseline = calculateBaseline(level, targetAC, advantage);
@@ -85,7 +93,7 @@ const Outputs: React.FC<Props> = ({
     {
       label: 'Combined + to hit',
       style: 'decimal',
-      value: toHitMods,
+      value: attackMods,
     },
     {
       label: `Chance to hit AC ${targetAC}`,
@@ -104,6 +112,11 @@ const Outputs: React.FC<Props> = ({
     },
   ];
   const damageRows: Row[] = [
+    {
+      label: 'Combined + to damage',
+      style: 'decimal',
+      value: damageMods,
+    },
     {
       label: 'Average damage per round',
       style: 'decimal',

@@ -2,17 +2,23 @@ import * as React from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
+  AdditionalMods,
   AdvantageSelect,
   AttackMods,
   Attacks,
   DamageDiceInput,
+  DamageMods,
   NumericInput,
   Outputs,
   TargetAC,
 } from 'components';
 import { profBonus } from 'services';
-import { Advantage, DamageDice, NumericInputValue } from 'types';
-import DamageMods from './DamageMods';
+import {
+  Advantage,
+  AdditionalModValues,
+  DamageDice,
+  NumericInputValue,
+} from 'types';
 
 const { useState } = React;
 
@@ -38,7 +44,15 @@ const Section = styled(Paper)(({ theme }) => ({
 
 const Calculator: React.FC = () => {
   const [targetAC, setTargetAC] = useState<NumericInputValue>(0);
-  const [toHitMods, setToHitMods] = useState<NumericInputValue>(0);
+  const [attackMods, setAttackMods] = useState<NumericInputValue>(0);
+  const [additionalMods, setAdditionalMods] = useState<AdditionalModValues>({
+    archeryFightingStyle: false,
+    duelingFightingStyle: false,
+    powerAttack: false,
+    plusOneWeapon: false,
+    plusTwoWeapon: false,
+    plusThreeWeapon: false,
+  });
   const [proficient, setProficient] = useState<boolean>(false);
   const [level, setLevel] = useState<NumericInputValue>(1);
   const [advantage, setAdvantage] = useState<Advantage>('normal');
@@ -75,8 +89,8 @@ const Calculator: React.FC = () => {
           }}
         />
         <AttackMods
-          value={toHitMods}
-          onChange={setToHitMods}
+          value={attackMods}
+          onChange={setAttackMods}
           proficient={proficient}
           setProficient={setProficient}
           level={level}
@@ -94,6 +108,7 @@ const Calculator: React.FC = () => {
           value={critThreshold}
           onChange={setCritThreshold}
         />
+        <AdditionalMods value={additionalMods} onChange={setAdditionalMods} />
         <AdvantageSelect value={advantage} onChange={setAdvantage} />
       </Section>
 
@@ -103,7 +118,7 @@ const Calculator: React.FC = () => {
         <DamageMods
           value={damageMods}
           onChange={setDamageMods}
-          attackModifiersSansPb={proficient ? toHitMods - pb : toHitMods}
+          attackModifiersSansPb={proficient ? attackMods - pb : attackMods}
         />
         <DamageDiceInput value={damageDice} onChange={setDamageDice} />
       </Section>
@@ -111,14 +126,15 @@ const Calculator: React.FC = () => {
       <Section sx={{ flexGrow: 2 }}>
         <Typography variant="h5">Outputs</Typography>
         <Outputs
+          additionalMods={additionalMods}
           advantage={advantage}
+          attackMods={attackMods}
           attacks={attacks}
           critThreshold={critThreshold}
           damageDice={damageDice}
           damageMods={damageMods}
           level={level}
           targetAC={targetAC}
-          toHitMods={toHitMods}
         />
         <Typography component="p" variant="subtitle2" maxWidth="80ch">
           The accuracy and damage baseline is equal to a warlock who begins with

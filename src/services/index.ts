@@ -1,4 +1,5 @@
 export * from './attackProgressions';
+export { default as applyAdditionalMods } from './applyAdditionalMods';
 export { default as averageMonsterAC } from './averageMonsterAC';
 export { default as calculateBaseline } from './calculateBaseline';
 export { default as chanceToCrit } from './chanceToCrit';

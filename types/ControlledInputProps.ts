@@ -1,6 +1,8 @@
+import { Dispatch, SetStateAction } from 'react';
+
 interface ControlledInputProps<T> {
   value: T;
-  onChange: (newValue: T) => unknown;
+  onChange: Dispatch<SetStateAction<T>>;
 }
 
 export default ControlledInputProps;
