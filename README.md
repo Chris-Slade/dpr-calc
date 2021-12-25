@@ -18,4 +18,4 @@ Built with `react-static`.
 - [ ] Add support for independent accuracy and damage values per attack.
 - [ ] Add ability to compare multiple DPRs.
 - [ ] Add graphing ability for DPR at various levels or against various ACs.
-- [ ] Add average AC by level option.
+- [x] Add average AC by level option.
