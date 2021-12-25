@@ -91,7 +91,7 @@ const Outputs: React.FC<Props> = ({
 
   const accuracyRows: Row[] = [
     {
-      label: 'Combined + to hit',
+      label: 'Sum of attack modifiers',
       style: 'decimal',
       value: attackMods,
     },
@@ -113,7 +113,7 @@ const Outputs: React.FC<Props> = ({
   ];
   const damageRows: Row[] = [
     {
-      label: 'Combined + to damage',
+      label: 'Sum of damage modifiers',
       style: 'decimal',
       value: damageMods,
     },

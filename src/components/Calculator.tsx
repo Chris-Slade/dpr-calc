@@ -48,6 +48,7 @@ const Calculator: React.FC = () => {
   const [additionalMods, setAdditionalMods] = useState<AdditionalModValues>({
     archeryFightingStyle: false,
     duelingFightingStyle: false,
+    bless: false,
     powerAttack: false,
     plusOneWeapon: false,
     plusTwoWeapon: false,

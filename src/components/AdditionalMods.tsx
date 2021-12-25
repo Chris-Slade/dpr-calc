@@ -3,6 +3,8 @@ import { FormGroup, FormLabel } from '@mui/material';
 import { Switch } from 'components';
 import { AdditionalModValues, ControlledInputProps } from 'types';
 
+const { useCallback } = React;
+
 interface Props extends ControlledInputProps<AdditionalModValues> {}
 
 const WEAPON_FIELDS: (keyof AdditionalModValues)[] = [
@@ -11,25 +13,27 @@ const WEAPON_FIELDS: (keyof AdditionalModValues)[] = [
   'plusThreeWeapon',
 ];
 
-const createHandler =
-  (
-    onChange: ControlledInputProps<AdditionalModValues>['onChange'],
-    fieldName: keyof AdditionalModValues
-  ) =>
-  (newValue: boolean) => {
-    onChange((values: AdditionalModValues) => {
-      const newValues = {
-        ...values,
-        [fieldName]: newValue,
-      };
-      // +X weapons are mutually exclusive.
-      if (WEAPON_FIELDS.includes(fieldName) && newValue) {
-        WEAPON_FIELDS.forEach((weapon) => (newValues[weapon] = false));
-        newValues[fieldName] = true;
-      }
-      return newValues;
-    });
-  };
+const useUpdateHandler = (
+  onChange: ControlledInputProps<AdditionalModValues>['onChange'],
+  fieldName: keyof AdditionalModValues
+) =>
+  useCallback(
+    (newValue: boolean) => {
+      onChange((values: AdditionalModValues) => {
+        const newValues = {
+          ...values,
+          [fieldName]: newValue,
+        };
+        // +X weapons are mutually exclusive.
+        if (WEAPON_FIELDS.includes(fieldName) && newValue) {
+          WEAPON_FIELDS.forEach((weapon) => (newValues[weapon] = false));
+          newValues[fieldName] = true;
+        }
+        return newValues;
+      });
+    },
+    [onChange, fieldName]
+  );
 
 const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {
   return (
@@ -39,34 +43,40 @@ const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {
         label="Archery FS"
         title="Archery Fighting Style (+2 to hit)."
         value={value.archeryFightingStyle}
-        onChange={createHandler(onChange, 'archeryFightingStyle')}
+        onChange={useUpdateHandler(onChange, 'archeryFightingStyle')}
       />
       <Switch
         label="Dueling FS"
         title="Dueling Fighting Style (+2 damage; also works for Thrown-Weapon Fighting Style)."
         value={value.duelingFightingStyle}
-        onChange={createHandler(onChange, 'duelingFightingStyle')}
+        onChange={useUpdateHandler(onChange, 'duelingFightingStyle')}
+      />
+      <Switch
+        label="Bless (+1d4)"
+        title="Bless spell (+1d4 to hit, equivalent to +2.5 on average)."
+        value={value.bless}
+        onChange={useUpdateHandler(onChange, 'bless')}
       />
       <Switch
         label="Power Attack (-5/+10)"
         title="Power Attacks for Sharpshooter or Great Weapon Master."
         value={value.powerAttack}
-        onChange={createHandler(onChange, 'powerAttack')}
+        onChange={useUpdateHandler(onChange, 'powerAttack')}
       />
       <Switch
         label="+1 Weapon (+1/+1)"
         value={value.plusOneWeapon}
-        onChange={createHandler(onChange, 'plusOneWeapon')}
+        onChange={useUpdateHandler(onChange, 'plusOneWeapon')}
       />
       <Switch
         label="+2 Weapon (+2/+2)"
         value={value.plusTwoWeapon}
-        onChange={createHandler(onChange, 'plusTwoWeapon')}
+        onChange={useUpdateHandler(onChange, 'plusTwoWeapon')}
       />
       <Switch
         label="+3 Weapon (+3/+3)"
         value={value.plusThreeWeapon}
-        onChange={createHandler(onChange, 'plusThreeWeapon')}
+        onChange={useUpdateHandler(onChange, 'plusThreeWeapon')}
       />
     </FormGroup>
   );
