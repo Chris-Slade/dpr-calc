@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   Checkbox as MuiCheckbox,
-  FormGroup,
   FormControlLabel,
   CheckboxProps,
 } from '@mui/material';
@@ -14,27 +13,18 @@ type Props = ControlledInputProps<boolean> &
 
 const Checkbox: React.FC<Props> = ({ value, onChange, label, ...rest }) => {
   return (
-    <FormGroup
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      }}
-    >
-      <FormControlLabel
-        control={
-          <MuiCheckbox
-            {...rest}
-            checked={value}
-            onChange={(_, checked) => {
-              onChange(checked);
-            }}
-          />
-        }
-        label={label}
-      />
-    </FormGroup>
+    <FormControlLabel
+      control={
+        <MuiCheckbox
+          {...rest}
+          checked={value}
+          onChange={(_, checked) => {
+            onChange(checked);
+          }}
+        />
+      }
+      label={label}
+    />
   );
 };
 

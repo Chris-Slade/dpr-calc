@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Box } from '@mui/material';
 import { Checkbox, NumericInput } from 'components';
 import { averageMonsterAC } from 'services';
 import { ControlledInputProps, NumericInputValue } from 'types';
@@ -18,8 +19,9 @@ const TargetAC: React.FC<Props> = ({ level, onChange, value }) => {
   }, [level, useAverageAC]);
 
   return (
-    <>
+    <Box display="flex" flexDirection="row" flexWrap="wrap" gap={3}>
       <NumericInput
+        sx={{ flexGrow: 1 }}
         InputProps={{
           inputProps: {
             min: 0,
@@ -33,11 +35,12 @@ const TargetAC: React.FC<Props> = ({ level, onChange, value }) => {
         disabled={useAverageAC}
       />
       <Checkbox
-        label="Use average AC where enemy CR = your level"
+        label="Use average AC"
+        title="Use the average AC for a monster whose CR equals your level (equal to 13 + CR/3 for CRs above 1/8)."
         value={useAverageAC}
         onChange={setUseAverageAC}
       />
-    </>
+    </Box>
   );
 };
 

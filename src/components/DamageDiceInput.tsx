@@ -7,21 +7,24 @@ interface Props extends ControlledInputProps<Value> {}
 
 const dice: Die[] = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20'];
 
-const InputGrid = styled('div')(({ theme }) => ({
-  display: 'grid',
+const InputGrid = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3),
-  gridTemplate: 'repeat(6, 1fr) / 1fr',
-  [theme.breakpoints.up('md')]: {
-    gridTemplate: 'repeat(3, 1fr) / repeat(2, 1fr)',
-  },
+  display: 'flex',
+  flexFlow: 'row wrap',
+  flex: '1 1 0',
+  maxWidth: `calc(3 * (10ch + ${theme.spacing(3)}))`,
 }));
+
+const StyledInput = styled(NumericInput)({
+  maxWidth: '10ch',
+});
 
 const DamageDieInput: React.FC<{
   die: Die;
   value: Value;
   onChange: (value: Value) => unknown;
 }> = ({ die, value, onChange }) => (
-  <NumericInput
+  <StyledInput
     label={die}
     name={die}
     value={value[die]}
