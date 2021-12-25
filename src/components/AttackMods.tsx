@@ -8,11 +8,17 @@ const { useEffect, useState } = React;
 
 interface Props extends ControlledInputProps<NumericInputValue> {
   level: number;
+  proficient: boolean;
+  setProficient: (newValue: boolean) => unknown;
 }
 
-const AttackMods: React.FC<Props> = ({ onChange, level }) => {
+const AttackMods: React.FC<Props> = ({
+  onChange,
+  level,
+  proficient,
+  setProficient,
+}) => {
   const [modifiersSansPb, setModifiersSansPb] = useState<number>(0);
-  const [proficient, setProficient] = useState<boolean>(true);
 
   useEffect(() => {
     onChange(proficient ? modifiersSansPb + profBonus(level) : modifiersSansPb);

@@ -3,6 +3,7 @@ export { default as AttackMods } from './AttackMods';
 export { default as Attacks } from './Attacks';
 export { default as Checkbox } from './Checkbox';
 export { default as DamageDiceInput } from './DamageDiceInput';
+export { default as DamageMods } from './DamageMods';
 export { default as Number } from './Number';
 export { default as NumericInput } from './NumericInput';
 export { default as Outputs } from './Outputs';

@@ -12,6 +12,7 @@ import {
 } from 'components';
 import { profBonus } from 'services';
 import { Advantage, DamageDice, NumericInputValue } from 'types';
+import DamageMods from './DamageMods';
 
 const { useState } = React;
 
@@ -38,6 +39,7 @@ const Section = styled(Paper)(({ theme }) => ({
 const Calculator: React.FC = () => {
   const [targetAC, setTargetAC] = useState<NumericInputValue>(0);
   const [toHitMods, setToHitMods] = useState<NumericInputValue>(0);
+  const [proficient, setProficient] = useState<boolean>(false);
   const [level, setLevel] = useState<NumericInputValue>(1);
   const [advantage, setAdvantage] = useState<Advantage>('normal');
   // TODO Allow setting damage independently across attacks
@@ -72,7 +74,13 @@ const Calculator: React.FC = () => {
             },
           }}
         />
-        <AttackMods value={toHitMods} onChange={setToHitMods} level={level} />
+        <AttackMods
+          value={toHitMods}
+          onChange={setToHitMods}
+          proficient={proficient}
+          setProficient={setProficient}
+          level={level}
+        />
         <TargetAC value={targetAC} onChange={setTargetAC} level={level} />
         <NumericInput
           label="Crit Threshold"
@@ -92,11 +100,10 @@ const Calculator: React.FC = () => {
       <Section>
         <Typography variant="h5">Damage</Typography>
         <Attacks level={level} value={attacks} onChange={setAttacks} />
-        <NumericInput
-          label="Damage Mods"
-          title="Any modifiers to damage, such as your attack modifier, Sharpshooter, +1/+2/+3 weapons, etc."
+        <DamageMods
           value={damageMods}
           onChange={setDamageMods}
+          attackModifiersSansPb={proficient ? toHitMods - pb : toHitMods}
         />
         <DamageDiceInput value={damageDice} onChange={setDamageDice} />
       </Section>
