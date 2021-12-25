@@ -93,7 +93,7 @@ const Calculator: React.FC = () => {
         <Typography variant="h5">Damage</Typography>
         <Attacks level={level} value={attacks} onChange={setAttacks} />
         <NumericInput
-          label="Damage Modifiers"
+          label="Damage Mods"
           title="Any modifiers to damage, such as your attack modifier, Sharpshooter, +1/+2/+3 weapons, etc."
           value={damageMods}
           onChange={setDamageMods}

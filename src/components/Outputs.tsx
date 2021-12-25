@@ -42,8 +42,12 @@ const Output: React.FC<{ title: string; rows: Row[] }> = ({ title, rows }) => (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell colSpan={2} variant="head">
-            <span>{title}</span>
+          <TableCell
+            colSpan={2}
+            variant="head"
+            sx={{ fontWeight: 'h3.fontWeight' }}
+          >
+            {title}
           </TableCell>
         </TableRow>
       </TableHead>
@@ -80,8 +84,8 @@ const Outputs: React.FC<Props> = ({
   const accuracyRows: Row[] = [
     {
       label: 'Combined + to hit',
-      style: 'percent',
-      value: accuracy,
+      style: 'decimal',
+      value: toHitMods,
     },
     {
       label: `Chance to hit AC ${targetAC}`,
@@ -94,7 +98,7 @@ const Outputs: React.FC<Props> = ({
       value: baseline.accuracy,
     },
     {
-      label: 'Percent of baseline',
+      label: 'Percentage of baseline',
       style: 'percent',
       value: accuracy / baseline.accuracy,
     },

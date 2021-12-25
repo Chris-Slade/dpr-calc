@@ -16,7 +16,7 @@ const AttackMods: React.FC<Props> = ({ onChange, level }) => {
 
   useEffect(() => {
     onChange(proficient ? modifiersSansPb + profBonus(level) : modifiersSansPb);
-  }, [modifiersSansPb, proficient]);
+  }, [modifiersSansPb, proficient, level]);
 
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap" gap={3}>
