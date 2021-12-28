@@ -81,7 +81,8 @@ const Outputs: React.FC<Props> = ({
   const [attackMods, damageMods] = applyAdditionalMods(
     additionalMods,
     baseAttackMods,
-    baseDamageMods
+    baseDamageMods,
+    level
   );
   const critChance = chanceToCrit(critThreshold, advantage);
   const accuracy = chanceToHit(attackMods, targetAC, critThreshold, advantage);

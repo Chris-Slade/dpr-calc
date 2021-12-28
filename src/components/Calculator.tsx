@@ -53,6 +53,7 @@ const Calculator: React.FC = () => {
     plusOneWeapon: false,
     plusTwoWeapon: false,
     plusThreeWeapon: false,
+    rage: false,
   });
   const [proficient, setProficient] = useState<boolean>(false);
   const [level, setLevel] = useState<NumericInputValue>(1);

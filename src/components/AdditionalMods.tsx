@@ -64,6 +64,12 @@ const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {
         onChange={useUpdateHandler(onChange, 'powerAttack')}
       />
       <Switch
+        label="Rage"
+        title="Barbarian Rage"
+        value={value.duelingFightingStyle}
+        onChange={useUpdateHandler(onChange, 'rage')}
+      />
+      <Switch
         label="+1 Weapon (+1/+1)"
         value={value.plusOneWeapon}
         onChange={useUpdateHandler(onChange, 'plusOneWeapon')}

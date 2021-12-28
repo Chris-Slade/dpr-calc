@@ -1,9 +1,13 @@
 import { AdditionalModValues } from 'types';
 
+const rageDamageByLevel = (level: number) =>
+  level < 9 ? 2 : level < 16 ? 3 : 4;
+
 export default (
   additionalMods: AdditionalModValues,
   attackMods: number,
-  damageMods: number
+  damageMods: number,
+  level: number
 ): [number, number] => {
   if (additionalMods.archeryFightingStyle) {
     attackMods += 2;
@@ -29,6 +33,9 @@ export default (
   if (additionalMods.powerAttack) {
     attackMods -= 5;
     damageMods += 10;
+  }
+  if (additionalMods.rage) {
+    damageMods += rageDamageByLevel(level);
   }
 
   return [attackMods, damageMods];

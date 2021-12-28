@@ -6,6 +6,7 @@ interface AdditionalModValues {
   plusThreeWeapon: boolean;
   plusTwoWeapon: boolean;
   powerAttack: boolean;
+  rage: boolean;
 }
 
 export default AdditionalModValues;
