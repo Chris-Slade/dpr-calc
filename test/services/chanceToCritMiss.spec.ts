@@ -8,14 +8,14 @@ describe('chance to crit miss', () => {
     });
   });
   describe('with advantage', () => {
-    it('should equal 0.0975', () => {
-      expect(chanceToCritMiss('advantage')).to.equal(0.0975);
+    it('should equal 0.0025', () => {
+      expect(chanceToCritMiss('advantage')).to.equal(0.0025);
     });
   });
 
   describe('with disadvantage', () => {
-    it('should equal 0.0025', () => {
-      expect(chanceToCritMiss('disadvantage')).to.equal(0.0025);
+    it('should equal 0.0975', () => {
+      expect(chanceToCritMiss('disadvantage')).to.equal(0.0975);
     });
   });
 });
