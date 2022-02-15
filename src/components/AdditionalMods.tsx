@@ -66,7 +66,7 @@ const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {
       <Switch
         label="Rage"
         title="Barbarian Rage"
-        value={value.duelingFightingStyle}
+        value={value.rage}
         onChange={useUpdateHandler(onChange, 'rage')}
       />
       <Switch
