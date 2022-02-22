@@ -18,4 +18,10 @@ describe('chance to crit miss', () => {
       expect(chanceToCritMiss('disadvantage')).to.equal(0.0975);
     });
   });
+
+  describe('with super advantage', () => {
+    it('should equal 0.0125%', () => {
+      expect(chanceToCritMiss('super_advantage')).to.equal(0.000125);
+    });
+  });
 });

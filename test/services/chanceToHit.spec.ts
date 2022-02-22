@@ -110,4 +110,31 @@ describe('chance to hit', () => {
       );
     });
   });
+
+  describe('elven accuracy hit', () => {
+    it('should be 95.7125%', () => {
+      expect(chanceToHit(7, 15, 20, 'super_advantage')).to.be.approximately(
+        0.957125,
+        EPSILON
+      );
+    });
+  });
+
+  describe('elven accuracy crit', () => {
+    it('should be 14.2625%', () => {
+      expect(chanceToHit(0, 50, 20, 'super_advantage')).to.be.approximately(
+        0.142625,
+        EPSILON
+      );
+    });
+  });
+
+  describe('elven accuracy crit on 19', () => {
+    it('should be 27.1%', () => {
+      expect(chanceToHit(0, 50, 19, 'super_advantage')).to.be.approximately(
+        0.271,
+        EPSILON
+      );
+    });
+  });
 });

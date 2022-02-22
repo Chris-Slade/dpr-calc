@@ -7,5 +7,7 @@ export default (critOn: number, advantage: Advantage) => {
     ? chanceOfCrit
     : advantage === 'advantage'
     ? 1 - chanceOfNoCrit ** 2
+    : advantage === 'super_advantage'
+    ? 1 - chanceOfNoCrit ** 3
     : chanceOfCrit ** 2;
 };

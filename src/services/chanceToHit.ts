@@ -21,5 +21,7 @@ export default (
     ? toHit
     : advantage === 'advantage'
     ? 1 - toMiss ** 2
+    : advantage === 'super_advantage'
+    ? 1 - toMiss ** 3
     : toHit ** 2;
 };

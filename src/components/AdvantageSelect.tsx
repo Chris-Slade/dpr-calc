@@ -36,6 +36,12 @@ const AdvantageSelect: React.FC<Props> = ({ value, onChange }) => {
             control={<Radio />}
             label="Disadvantage"
           />
+          <FormControlLabel
+            value="super_advantage"
+            control={<Radio />}
+            label="Super Advantage"
+            title="The highest of 3d20, e.g. for Elven Accuracy."
+          />
         </RadioGroup>
       </FormControl>
     </Box>

@@ -25,6 +25,7 @@ describe('chanceToCrit', () => {
       );
     });
   });
+
   describe('crit on 19, normal', () => {
     it('should return 0.1', () => {
       expect(chanceToCrit(19, 'normal')).to.be.approximately(0.1, EPSILON);
@@ -39,6 +40,23 @@ describe('chanceToCrit', () => {
     it('should return 0.01', () => {
       expect(chanceToCrit(19, 'disadvantage')).to.be.approximately(
         0.01,
+        EPSILON
+      );
+    });
+  });
+
+  describe('elven accuracy crit', () => {
+    it('should be 95.7125%', () => {
+      expect(chanceToCrit(20, 'super_advantage')).to.be.approximately(
+        0.142625,
+        EPSILON
+      );
+    });
+  });
+  describe('elven accuracy crit on 19', () => {
+    it('should be 27.1%', () => {
+      expect(chanceToCrit(19, 'super_advantage')).to.be.approximately(
+        0.271,
         EPSILON
       );
     });
