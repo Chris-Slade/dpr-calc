@@ -52,12 +52,6 @@ const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {
         onChange={useUpdateHandler(onChange, 'duelingFightingStyle')}
       />
       <Switch
-        label="Bless (+1d4)"
-        title="Bless spell (+1d4 to hit, equivalent to +2.5 on average)."
-        value={value.bless}
-        onChange={useUpdateHandler(onChange, 'bless')}
-      />
-      <Switch
         label="Power Attack (-5/+10)"
         title="Power Attacks for Sharpshooter or Great Weapon Master."
         value={value.powerAttack}

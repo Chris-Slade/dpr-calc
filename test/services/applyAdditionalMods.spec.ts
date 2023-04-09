@@ -5,7 +5,6 @@ import { applyAdditionalMods } from '../../src/services';
 const createMods = (fieldName: keyof AdditionalModValues) => ({
   archeryFightingStyle: false,
   duelingFightingStyle: false,
-  bless: false,
   plusOneWeapon: false,
   plusThreeWeapon: false,
   plusTwoWeapon: false,
@@ -27,13 +26,6 @@ describe('Additional mods', () => {
       expect(
         applyAdditionalMods(createMods('duelingFightingStyle'), 0, 0, 1)
       ).to.have.members([0, 2]);
-    });
-  });
-  describe('Bless', () => {
-    it('Should add 2.5 to hit', () => {
-      expect(applyAdditionalMods(createMods('bless'), 0, 0, 1)).to.have.members(
-        [2.5, 0]
-      );
     });
   });
   describe('Power Attack', () => {

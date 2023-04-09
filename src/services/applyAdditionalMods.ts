@@ -15,9 +15,6 @@ export default (
   if (additionalMods.duelingFightingStyle) {
     damageMods += 2;
   }
-  if (additionalMods.bless) {
-    attackMods += 2.5;
-  }
   if (additionalMods.plusOneWeapon) {
     attackMods += 1;
     damageMods += 1;
