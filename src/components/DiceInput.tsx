@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, FormLabel, styled } from '@mui/material';
-import { ControlledInputProps, DamageDice as Value, Die } from 'types';
+import { ControlledInputProps, Dice as Value, Die } from 'types';
 import NumericInput from './NumericInput';
 
 interface Props extends ControlledInputProps<Value> {}
@@ -19,7 +19,7 @@ const StyledInput = styled(NumericInput)({
   maxWidth: '10ch',
 });
 
-const DamageDieInput: React.FC<{
+const DieInput: React.FC<{
   die: Die;
   value: Value;
   onChange: (value: Value) => unknown;
@@ -37,15 +37,15 @@ const DamageDieInput: React.FC<{
   />
 );
 
-const DamageDiceInput: React.FC<Props> = ({ value, onChange }) => (
+const DiceInput: React.FC<Props> = ({ value, onChange }) => (
   <Box display="flex" flexDirection="column">
     <FormLabel sx={{ marginBottom: 3 }}>Damage Dice</FormLabel>
     <InputGrid>
       {dice.map((die, key) => (
-        <DamageDieInput key={key} die={die} value={value} onChange={onChange} />
+        <DieInput key={key} die={die} value={value} onChange={onChange} />
       ))}
     </InputGrid>
   </Box>
 );
 
-export default DamageDiceInput;
+export default DiceInput;

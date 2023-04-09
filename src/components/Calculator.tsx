@@ -6,20 +6,15 @@ import {
   AdvantageSelect,
   AttackMods,
   Attacks,
-  DamageDiceInput,
   DamageMods,
+  DiceInput,
   NumericInput,
   Outputs,
   Switch,
   TargetAC,
 } from 'components';
 import { profBonus } from 'services';
-import {
-  Advantage,
-  AdditionalModValues,
-  DamageDice,
-  NumericInputValue,
-} from 'types';
+import { AdditionalModValues, Advantage, Dice, NumericInputValue } from 'types';
 
 const { useState } = React;
 
@@ -62,7 +57,7 @@ const Calculator: React.FC = () => {
     useState<Advantage>('normal');
   // TODO Allow setting damage independently across attacks
   const [attacks, setAttacks] = useState<NumericInputValue>(0);
-  const [damageDice, setDamageDice] = useState<DamageDice>({
+  const [damageDice, setDamageDice] = useState<Dice>({
     d4: 0,
     d6: 0,
     d8: 0,
@@ -149,7 +144,7 @@ const Calculator: React.FC = () => {
           onChange={setDamageMods}
           attackModifiersSansPb={proficient ? attackMods - pb : attackMods}
         />
-        <DamageDiceInput value={damageDice} onChange={setDamageDice} />
+        <DiceInput value={damageDice} onChange={setDamageDice} />
       </Section>
 
       <Section sx={{ flexGrow: 2 }}>

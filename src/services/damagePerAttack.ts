@@ -1,11 +1,11 @@
-import DamageDice from 'types/DamageDice';
+import Dice from 'types/Dice';
 import Die from 'types/Die';
 import dieAverage from './dieAverage';
 
 export default (
   chanceToHit: number,
   chanceToCrit: number,
-  damageDice: DamageDice,
+  damageDice: Dice,
   damageMods: number
 ) => {
   const diceDamage = (Object.keys(damageDice) as Die[]).reduce(

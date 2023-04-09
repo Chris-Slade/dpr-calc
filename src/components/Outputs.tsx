@@ -17,7 +17,7 @@ import {
   chanceToHit,
   damagePerAttack,
 } from 'services';
-import { AdditionalModValues, Advantage, DamageDice } from 'types';
+import { AdditionalModValues, Advantage, Dice } from 'types';
 
 interface Props {
   additionalMods: AdditionalModValues;
@@ -26,7 +26,7 @@ interface Props {
   attacks: number;
   baselineAdvantage: Advantage;
   critThreshold: number;
-  damageDice: DamageDice;
+  damageDice: Dice;
   damageMods: number;
   level: number;
   targetAC: number;
