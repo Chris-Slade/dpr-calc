@@ -22,13 +22,14 @@ import { AdditionalModValues, Advantage, DamageDice } from 'types';
 interface Props {
   additionalMods: AdditionalModValues;
   advantage: Advantage;
+  attackMods: number;
   attacks: number;
+  baselineAdvantage: Advantage;
   critThreshold: number;
   damageDice: DamageDice;
   damageMods: number;
   level: number;
   targetAC: number;
-  attackMods: number;
 }
 
 type Row = { label: string; style: 'decimal' | 'percent'; value: number };
@@ -72,6 +73,7 @@ const Outputs: React.FC<Props> = ({
   advantage,
   attackMods: baseAttackMods,
   attacks,
+  baselineAdvantage,
   critThreshold,
   damageDice,
   damageMods: baseDamageMods,
@@ -88,7 +90,7 @@ const Outputs: React.FC<Props> = ({
   const accuracy = chanceToHit(attackMods, targetAC, critThreshold, advantage);
   const damage =
     attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
-  const baseline = calculateBaseline(level, targetAC, advantage);
+  const baseline = calculateBaseline(level, targetAC, baselineAdvantage);
 
   const accuracyRows: Row[] = [
     {

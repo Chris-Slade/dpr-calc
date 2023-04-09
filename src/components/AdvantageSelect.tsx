@@ -10,13 +10,15 @@ import {
 import Value from 'types/Advantage';
 import { ControlledInputProps } from 'types';
 
-interface Props extends ControlledInputProps<Value> {}
+interface Props extends ControlledInputProps<Value> {
+  label: string;
+}
 
-const AdvantageSelect: React.FC<Props> = ({ value, onChange }) => {
+const AdvantageSelect: React.FC<Props> = ({ label, value, onChange }) => {
   return (
     <Box>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Advantage/Disadvantage</FormLabel>
+        <FormLabel component="legend">{label}</FormLabel>
         <RadioGroup
           aria-label="Advantage/Disadvantage"
           defaultValue="normal"

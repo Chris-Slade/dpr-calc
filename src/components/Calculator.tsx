@@ -10,6 +10,7 @@ import {
   DamageMods,
   NumericInput,
   Outputs,
+  Switch,
   TargetAC,
 } from 'components';
 import { profBonus } from 'services';
@@ -58,6 +59,8 @@ const Calculator: React.FC = () => {
   const [proficient, setProficient] = useState<boolean>(false);
   const [level, setLevel] = useState<NumericInputValue>(1);
   const [advantage, setAdvantage] = useState<Advantage>('normal');
+  const [baselineAdvantage, setBaselineAdvantage] =
+    useState<Advantage>('normal');
   // TODO Allow setting damage independently across attacks
   const [attacks, setAttacks] = useState<NumericInputValue>(0);
   const [damageDice, setDamageDice] = useState<DamageDice>({
@@ -70,6 +73,8 @@ const Calculator: React.FC = () => {
   });
   const [damageMods, setDamageMods] = useState<NumericInputValue>(0);
   const [critThreshold, setCritThreshold] = useState<number>(20);
+
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const pb = profBonus(level);
 
@@ -98,20 +103,43 @@ const Calculator: React.FC = () => {
           level={level}
         />
         <TargetAC value={targetAC} onChange={setTargetAC} level={level} />
-        <NumericInput
-          label="Crit Threshold"
-          title="The minimum roll on the d20 needed to get a critical hit."
-          InputProps={{
-            inputProps: {
-              min: 1,
-              max: 20,
-            },
+        <Switch
+          label="Show Advanced Options"
+          value={showAdvanced}
+          onChange={() => {
+            setShowAdvanced((v) => !v);
           }}
-          value={critThreshold}
-          onChange={setCritThreshold}
         />
-        <AdditionalMods value={additionalMods} onChange={setAdditionalMods} />
-        <AdvantageSelect value={advantage} onChange={setAdvantage} />
+        {showAdvanced && (
+          <>
+            <NumericInput
+              label="Crit Threshold"
+              title="The minimum roll on the d20 needed to get a critical hit."
+              InputProps={{
+                inputProps: {
+                  min: 1,
+                  max: 20,
+                },
+              }}
+              value={critThreshold}
+              onChange={setCritThreshold}
+            />
+            <AdditionalMods
+              value={additionalMods}
+              onChange={setAdditionalMods}
+            />
+            <AdvantageSelect
+              label="Advantage/Disadvantage"
+              value={advantage}
+              onChange={setAdvantage}
+            />
+            <AdvantageSelect
+              label="Baseline Advantage/Disadvantage"
+              value={baselineAdvantage}
+              onChange={setBaselineAdvantage}
+            />
+          </>
+        )}
       </Section>
 
       <Section>
@@ -132,6 +160,7 @@ const Calculator: React.FC = () => {
           advantage={advantage}
           attackMods={attackMods}
           attacks={attacks}
+          baselineAdvantage={baselineAdvantage}
           critThreshold={critThreshold}
           damageDice={damageDice}
           damageMods={damageMods}
