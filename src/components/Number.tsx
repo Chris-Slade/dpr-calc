@@ -15,8 +15,16 @@ const Number: React.FC<Props> = ({ label, value, style = 'decimal' }) => {
         maximumFractionDigits: style === 'decimal' ? 10 : 2,
       }).format(value);
 
+  const valueString = String(value);
+
+  const isTruncated =
+    !isNaN(value) &&
+    (style === 'percent'
+      ? valueString.length !== formatted.length - 1
+      : valueString.length !== formatted.length);
+
   return (
-    <Typography>
+    <Typography title={isTruncated ? valueString : undefined}>
       {label ? `${label}: ` : ''}
       {formatted}
     </Typography>
