@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Paper,
@@ -8,8 +8,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@mui/material';
-import { Number } from 'components';
+import { BaselineSelect, Number } from 'components';
 import {
   applyAdditionalMods,
   calculateBaseline,
@@ -17,7 +18,7 @@ import {
   chanceToHit,
   damagePerAttack,
 } from 'services';
-import { AdditionalModValues, Advantage, Dice } from 'types';
+import { AdditionalModValues, Advantage, Baseline, Dice } from 'types';
 
 interface Props {
   additionalMods: AdditionalModValues;
@@ -84,6 +85,8 @@ const Outputs: React.FC<Props> = ({
   penaltyDice,
   targetAC,
 }) => {
+  const [baselineType, setBaselineType] = useState<Baseline>('warlock');
+
   const [attackMods, damageMods] = applyAdditionalMods(
     additionalMods,
     baseAttackMods,
@@ -101,7 +104,12 @@ const Outputs: React.FC<Props> = ({
   );
   const damage =
     attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
-  const baseline = calculateBaseline(level, targetAC, baselineAdvantage);
+  const baseline = calculateBaseline(
+    baselineType,
+    level,
+    targetAC,
+    baselineAdvantage
+  );
 
   const accuracyRows: Row[] = [
     {
@@ -152,6 +160,21 @@ const Outputs: React.FC<Props> = ({
     <Box display="flex" flexDirection="row" flexWrap="wrap" gap={3}>
       <Output title="Accuracy" rows={accuracyRows} />
       <Output title="Damage" rows={damageRows} />
+      <BaselineSelect value={baselineType} onChange={setBaselineType} />
+      <Typography component="p" variant="subtitle2" maxWidth="80ch">
+        The warlock baseline starts with 16 CHA, increases it to 18 at 4th level
+        and 20 at 8th level, and attacks using Eldritch Blast with Agonizing
+        Blast and Hex.
+      </Typography>
+      <Typography component="p" variant="subtitle2" maxWidth="80ch">
+        The fighter baseline starts with 16 DEX, the Archery Fighting Style, and
+        the Crossbow Expert feat. It takes the Sharpshooter feat at 4th level
+        and increases DEX to 18 at 6th level and 20 at 8th level.
+      </Typography>
+      <Typography component="p" variant="subtitle2" maxWidth="80ch">
+        The rogue baseline starts with 16 DEX and uses a rapier with Sneak
+        Attack. It increases DEX to 18 at 4th level and 20 at 8th level.
+      </Typography>
     </Box>
   );
 };

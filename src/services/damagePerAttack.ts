@@ -5,11 +5,11 @@ import dieAverage from './dieAverage';
 export default (
   chanceToHit: number,
   chanceToCrit: number,
-  damageDice: Dice,
+  damageDice: Partial<Dice>,
   damageMods: number
 ) => {
   const diceDamage = (Object.keys(damageDice) as Die[]).reduce(
-    (acc, cur) => acc + dieAverage(cur) * damageDice[cur],
+    (acc, cur) => acc + dieAverage(cur) * (damageDice?.[cur] ?? 0),
     0
   );
 
