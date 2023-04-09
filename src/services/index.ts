@@ -9,3 +9,4 @@ export { default as clamp } from './clamp';
 export { default as damagePerAttack } from './damagePerAttack';
 export { default as dieAverage } from './dieAverage';
 export { default as profBonus } from './profBonus';
+export { default as sidesOfDie } from './sidesOfDie';

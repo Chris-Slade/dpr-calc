@@ -25,10 +25,12 @@ interface Props {
   attackMods: number;
   attacks: number;
   baselineAdvantage: Advantage;
+  bonusDice: Partial<Dice>;
   critThreshold: number;
   damageDice: Dice;
   damageMods: number;
   level: number;
+  penaltyDice: Partial<Dice>;
   targetAC: number;
 }
 
@@ -74,10 +76,12 @@ const Outputs: React.FC<Props> = ({
   attackMods: baseAttackMods,
   attacks,
   baselineAdvantage,
+  bonusDice,
   critThreshold,
   damageDice,
   damageMods: baseDamageMods,
   level,
+  penaltyDice,
   targetAC,
 }) => {
   const [attackMods, damageMods] = applyAdditionalMods(
@@ -87,7 +91,14 @@ const Outputs: React.FC<Props> = ({
     level
   );
   const critChance = chanceToCrit(critThreshold, advantage);
-  const accuracy = chanceToHit(attackMods, targetAC, critThreshold, advantage);
+  const accuracy = chanceToHit(
+    attackMods,
+    targetAC,
+    critThreshold,
+    advantage,
+    bonusDice,
+    penaltyDice
+  );
   const damage =
     attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods);
   const baseline = calculateBaseline(level, targetAC, baselineAdvantage);

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
@@ -15,8 +15,6 @@ import {
 } from 'components';
 import { profBonus } from 'services';
 import { AdditionalModValues, Advantage, Dice, NumericInputValue } from 'types';
-
-const { useState } = React;
 
 const Page = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -38,6 +36,15 @@ const Section = styled(Paper)(({ theme }) => ({
   minWidth: '20em',
 }));
 
+const DEFAULT_DICE: Readonly<Dice> = Object.freeze({
+  d4: 0,
+  d6: 0,
+  d8: 0,
+  d10: 0,
+  d12: 0,
+  d20: 0,
+});
+
 const Calculator: React.FC = () => {
   const [targetAC, setTargetAC] = useState<NumericInputValue>(0);
   const [attackMods, setAttackMods] = useState<NumericInputValue>(0);
@@ -52,19 +59,14 @@ const Calculator: React.FC = () => {
   });
   const [proficient, setProficient] = useState<boolean>(false);
   const [level, setLevel] = useState<NumericInputValue>(1);
+  const [bonusDice, setBonusDice] = useState(DEFAULT_DICE);
+  const [penaltyDice, setPenaltyDice] = useState(DEFAULT_DICE);
   const [advantage, setAdvantage] = useState<Advantage>('normal');
   const [baselineAdvantage, setBaselineAdvantage] =
     useState<Advantage>('normal');
   // TODO Allow setting damage independently across attacks
   const [attacks, setAttacks] = useState<NumericInputValue>(0);
-  const [damageDice, setDamageDice] = useState<Dice>({
-    d4: 0,
-    d6: 0,
-    d8: 0,
-    d10: 0,
-    d12: 0,
-    d20: 0,
-  });
+  const [damageDice, setDamageDice] = useState<Dice>(DEFAULT_DICE);
   const [damageMods, setDamageMods] = useState<NumericInputValue>(0);
   const [critThreshold, setCritThreshold] = useState<number>(20);
 
@@ -122,6 +124,18 @@ const Calculator: React.FC = () => {
               value={additionalMods}
               onChange={setAdditionalMods}
             />
+            <DiceInput
+              label="Bonus Dice"
+              title="Any dice that are added to your to-hit bonus (e.g. Bless)."
+              value={bonusDice}
+              onChange={setBonusDice}
+            />
+            <DiceInput
+              label="Penalty Dice"
+              title="Any dice that are subtracted from your to-hit bonus (e.g. Bane)."
+              value={penaltyDice}
+              onChange={setPenaltyDice}
+            />
             <AdvantageSelect
               label="Advantage/Disadvantage"
               value={advantage}
@@ -144,7 +158,11 @@ const Calculator: React.FC = () => {
           onChange={setDamageMods}
           attackModifiersSansPb={proficient ? attackMods - pb : attackMods}
         />
-        <DiceInput value={damageDice} onChange={setDamageDice} />
+        <DiceInput
+          label="Damage Dice"
+          value={damageDice}
+          onChange={setDamageDice}
+        />
       </Section>
 
       <Section sx={{ flexGrow: 2 }}>
@@ -153,6 +171,8 @@ const Calculator: React.FC = () => {
           additionalMods={additionalMods}
           advantage={advantage}
           attackMods={attackMods}
+          bonusDice={bonusDice}
+          penaltyDice={penaltyDice}
           attacks={attacks}
           baselineAdvantage={baselineAdvantage}
           critThreshold={critThreshold}

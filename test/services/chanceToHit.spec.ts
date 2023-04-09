@@ -137,4 +137,106 @@ describe('chance to hit', () => {
       );
     });
   });
+
+  describe('normal, bless, crit on 20', () => {
+    it('should be 0.675', () => {
+      expect(chanceToHit(5, 15, 20, 'normal', { d4: 1 })).to.be.approximately(
+        0.675,
+        EPSILON
+      );
+    });
+  });
+
+  describe('normal, bane, crit on 20', () => {
+    it('should be 0.425', () => {
+      expect(
+        chanceToHit(5, 15, 20, 'normal', undefined, { d4: 1 })
+      ).to.be.approximately(0.425, EPSILON);
+    });
+  });
+
+  describe('normal out of bounds (enemy AC), bless, crit on 20', () => {
+    it('should be 0.0875', () => {
+      expect(chanceToHit(3, 25, 20, 'normal', { d4: 1 })).to.be.approximately(
+        0.0875,
+        EPSILON
+      );
+    });
+  });
+
+  describe('normal out of bounds (to hit), bless, crit on 20', () => {
+    it('should be 0.95', () => {
+      expect(chanceToHit(8, 10, 20, 'normal', { d4: 1 })).to.be.approximately(
+        0.95,
+        EPSILON
+      );
+    });
+  });
+
+  describe('bonus dice stress test', () => {
+    it('should be 0.949311382904', () => {
+      expect(
+        chanceToHit(5, 69, 20, 'normal', {
+          d4: 6,
+          d6: 5,
+          d8: 4,
+          d10: 3,
+          d12: 2,
+          d20: 1,
+        })
+      ).to.be.approximately(0.949311382904, EPSILON);
+    });
+  });
+
+  describe('penalty dice stress test', () => {
+    it('should be 0.514313755234', () => {
+      expect(
+        chanceToHit(100, 20, 20, 'normal', undefined, {
+          d4: 6,
+          d6: 5,
+          d8: 4,
+          d10: 3,
+          d12: 2,
+          d20: 1,
+        })
+      ).to.be.approximately(0.514313755234, EPSILON);
+    });
+  });
+
+  describe('full stress test', () => {
+    it('should be 0.891196525057', () => {
+      expect(
+        chanceToHit(
+          11,
+          50,
+          19,
+          'advantage',
+          {
+            d4: 1,
+            d6: 2,
+            d8: 3,
+            d10: 4,
+            d12: 5,
+            d20: 6,
+          },
+          {
+            d4: 6,
+            d6: 5,
+            d8: 4,
+            d10: 3,
+            d12: 2,
+            d20: 1,
+          }
+        )
+      ).to.be.approximately(0.891196525057, EPSILON);
+    });
+  });
+
+  describe('test', () => {
+    it('should be 0.4', () => {
+      expect(
+        chanceToHit(6, 18, 19, 'normal', { d4: 1 }, { d6: 1 })
+      ).to.be.approximately(0.4, EPSILON);
+    });
+  });
 });

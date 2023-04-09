@@ -3,7 +3,10 @@ import { Box, FormLabel, styled } from '@mui/material';
 import { ControlledInputProps, Dice as Value, Die } from 'types';
 import NumericInput from './NumericInput';
 
-interface Props extends ControlledInputProps<Value> {}
+interface Props extends ControlledInputProps<Value> {
+  label: string;
+  title?: string;
+}
 
 const dice: Die[] = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20'];
 
@@ -37,9 +40,9 @@ const DieInput: React.FC<{
   />
 );
 
-const DiceInput: React.FC<Props> = ({ value, onChange }) => (
-  <Box display="flex" flexDirection="column">
-    <FormLabel sx={{ marginBottom: 3 }}>Damage Dice</FormLabel>
+const DiceInput: React.FC<Props> = ({ label, title, value, onChange }) => (
+  <Box display="flex" flexDirection="column" title={title}>
+    <FormLabel sx={{ marginBottom: 3 }}>{label}</FormLabel>
     <InputGrid>
       {dice.map((die, key) => (
         <DieInput key={key} die={die} value={value} onChange={onChange} />
