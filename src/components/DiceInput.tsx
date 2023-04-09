@@ -37,6 +37,7 @@ const DieInput: React.FC<{
         [die]: newValue,
       })
     }
+    inputProps={{ min: 0 }}
   />
 );
 
