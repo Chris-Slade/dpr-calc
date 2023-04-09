@@ -2,10 +2,13 @@
   "name": "react-static-example-typescript",
   "private": true,
   "homepage": "https://chris-slade.github.io/dpr-calc/",
+  "engines": {
+    "node": "^16"
+  },
   "scripts": {
     "start": "cross-env NODE_OPTIONS='--max-http-header-size=32768' react-static start",
-    "stage": "react-static build --staging",
-    "build": "react-static build",
+    "stage": "cross-env react-static build --staging",
+    "build": "cross-env react-static build",
     "bundle": "react-static bundle",
     "export": "react-static export",
     "serve": "cross-env NODE_OPTIONS='--max-http-header-size=32768' serve dist -p 3000 -s",
