@@ -20,6 +20,7 @@ const DamageMods: React.FC<Props> = ({
     if (useAttackMod) {
       onChange(attackModifiersSansPb);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useAttackMod, attackModifiersSansPb]);
 
   return (

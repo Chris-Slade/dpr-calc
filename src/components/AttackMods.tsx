@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Checkbox, NumericInput } from 'components';
 import { profBonus } from 'services';
 import { ControlledInputProps, NumericInputValue } from 'types';
-
-const { useEffect, useState } = React;
 
 interface Props extends ControlledInputProps<NumericInputValue> {
   level: number;
@@ -22,6 +20,7 @@ const AttackMods: React.FC<Props> = ({
 
   useEffect(() => {
     onChange(proficient ? modifiersSansPb + profBonus(level) : modifiersSansPb);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modifiersSansPb, proficient, level]);
 
   return (

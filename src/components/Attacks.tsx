@@ -29,6 +29,7 @@ const Attacks: React.FC<Props> = ({ value, onChange, level }) => {
     } else if (inputType === 'fighter-ba') {
       onChange(fighterAttacks(level) + 1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [level, inputType]);
 
   return (

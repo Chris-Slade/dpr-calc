@@ -1,10 +1,8 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Checkbox, NumericInput } from 'components';
 import { averageMonsterAC } from 'services';
 import { ControlledInputProps, NumericInputValue } from 'types';
-
-const { useEffect, useState } = React;
 
 interface Props extends ControlledInputProps<NumericInputValue> {
   level: number;
@@ -16,6 +14,7 @@ const TargetAC: React.FC<Props> = ({ level, onChange, value }) => {
     if (useAverageAC) {
       onChange(averageMonsterAC(level));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [level, useAverageAC]);
 
   return (
