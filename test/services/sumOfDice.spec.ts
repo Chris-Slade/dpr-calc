@@ -18,4 +18,18 @@ describe('sum of dice', () => {
       140.5
     );
   });
+
+  it('should handle no dice', () => {
+    expect(sumOfDice({})).to.equal(0);
+  });
+
+  it('should handle undefined dice', () => {
+    expect(
+      sumOfDice({
+        d4: 2,
+        d6: undefined,
+        d8: 2,
+      })
+    ).to.equal(14);
+  });
 });
