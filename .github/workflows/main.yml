@@ -18,6 +18,7 @@ jobs:
         run: |
           yarn
           yarn build
+          touch dist/.nojekyll # Needed to prevent GitHub from ignoring dist/_next/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.0.0
