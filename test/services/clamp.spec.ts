@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import clamp from 'services/clamp';
+import { clamp } from 'services';
 
 describe('clamp', () => {
   it('clamps lower', () => {

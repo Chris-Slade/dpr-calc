@@ -59,6 +59,7 @@ const Calculator: React.FC = () => {
   });
   const [proficient, setProficient] = useState<boolean>(false);
   const [level, setLevel] = useState<NumericInputValue>(1);
+  const [critThreshold, setCritThreshold] = useState<number>(20);
   const [bonusDice, setBonusDice] = useState(DEFAULT_DICE);
   const [penaltyDice, setPenaltyDice] = useState(DEFAULT_DICE);
   const [advantage, setAdvantage] = useState<Advantage>('normal');
@@ -68,9 +69,11 @@ const Calculator: React.FC = () => {
   const [attacks, setAttacks] = useState<NumericInputValue>(0);
   const [damageDice, setDamageDice] = useState<Dice>(DEFAULT_DICE);
   const [damageMods, setDamageMods] = useState<NumericInputValue>(0);
-  const [critThreshold, setCritThreshold] = useState<number>(20);
 
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showAdvancedAccuracy, setShowAdvancedAccuracy] = useState(false);
+  const [showAdvancedDamage, setShowAdvancedDamage] = useState(false);
+  const [firstHitBonus, setFirstHitBonus] = useState<NumericInputValue>(0);
+  const [firstHitBonusDice, setFirstHitBonusDice] = useState(DEFAULT_DICE);
 
   const pb = profBonus(level);
 
@@ -101,12 +104,12 @@ const Calculator: React.FC = () => {
         <TargetAC value={targetAC} onChange={setTargetAC} level={level} />
         <Switch
           label="Show Advanced Options"
-          value={showAdvanced}
+          value={showAdvancedAccuracy}
           onChange={() => {
-            setShowAdvanced((v) => !v);
+            setShowAdvancedAccuracy((v) => !v);
           }}
         />
-        {showAdvanced && (
+        {showAdvancedAccuracy && (
           <>
             <NumericInput
               label="Crit Threshold"
@@ -163,6 +166,29 @@ const Calculator: React.FC = () => {
           value={damageDice}
           onChange={setDamageDice}
         />
+        <Switch
+          label="Show Advanced Options"
+          value={showAdvancedDamage}
+          onChange={() => {
+            setShowAdvancedDamage((v) => !v);
+          }}
+        />
+        {showAdvancedDamage && (
+          <>
+            <NumericInput
+              label="First-Hit Bonus Damage"
+              title="Bonus damage that is only dealt on the first hit you make on a turn."
+              value={firstHitBonus}
+              onChange={setFirstHitBonus}
+            />
+            <DiceInput
+              label="First-Hit Bonus Dice"
+              title="Bonus damage dice that are only dealt on the first hit you make on a turn (e.g. Sneak Attack)."
+              value={firstHitBonusDice}
+              onChange={setFirstHitBonusDice}
+            />
+          </>
+        )}
       </Section>
 
       <Section sx={{ flexGrow: 2 }}>
@@ -171,14 +197,16 @@ const Calculator: React.FC = () => {
           additionalMods={additionalMods}
           advantage={advantage}
           attackMods={attackMods}
-          bonusDice={bonusDice}
-          penaltyDice={penaltyDice}
           attacks={attacks}
           baselineAdvantage={baselineAdvantage}
+          bonusDice={bonusDice}
           critThreshold={critThreshold}
           damageDice={damageDice}
           damageMods={damageMods}
+          firstHitBonus={firstHitBonus}
+          firstHitBonusDice={firstHitBonusDice}
           level={level}
+          penaltyDice={penaltyDice}
           targetAC={targetAC}
         />
       </Section>

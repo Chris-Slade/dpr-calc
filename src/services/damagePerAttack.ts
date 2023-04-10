@@ -1,6 +1,5 @@
 import Dice from 'types/Dice';
-import Die from 'types/Die';
-import dieAverage from './dieAverage';
+import sumOfDice from './sumOfDice';
 
 export default (
   chanceToHit: number,
@@ -8,10 +7,7 @@ export default (
   damageDice: Partial<Dice>,
   damageMods: number
 ) => {
-  const diceDamage = (Object.keys(damageDice) as Die[]).reduce(
-    (acc, cur) => acc + dieAverage(cur) * (damageDice?.[cur] ?? 0),
-    0
-  );
+  const diceDamage = sumOfDice(damageDice);
 
   return chanceToHit * (diceDamage + damageMods) + chanceToCrit * diceDamage;
 };
