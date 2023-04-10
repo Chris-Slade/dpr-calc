@@ -33,7 +33,7 @@ const useUpdateHandler = (
       });
     },
     [onChange, fieldName]
-  );
+  ) as React.Dispatch<React.SetStateAction<boolean>>;
 
 const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {
   return (

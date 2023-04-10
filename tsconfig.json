@@ -1,21 +1,22 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "jsx": "preserve",
     "allowJs": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "module": "commonjs",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "sourceMap": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "noEmit": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "esnext",
     "baseUrl": ".",
     "paths": {
       "components": ["src/components/index"],
@@ -25,7 +26,8 @@
       "types": ["types/index"],
       "types/*": ["types/*"]
     },
-    "lib": ["dom", "es2015", "es2016"]
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "exclude": ["artifacts/**/*", "dist/**/*", "public/**/*", "node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "out", "public"]
 }

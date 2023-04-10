@@ -9,7 +9,7 @@ const { useEffect, useState } = React;
 interface Props extends ControlledInputProps<NumericInputValue> {
   level: number;
   proficient: boolean;
-  setProficient: (newValue: boolean) => unknown;
+  setProficient: ControlledInputProps<boolean>['onChange'];
 }
 
 const AttackMods: React.FC<Props> = ({

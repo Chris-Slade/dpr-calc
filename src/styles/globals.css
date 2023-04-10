@@ -27,3 +27,9 @@ nav a {
   padding: 1rem;
   display: inline-block;
 }
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

@@ -3,6 +3,7 @@ export { default as AdvantageSelect } from './AdvantageSelect';
 export { default as AttackMods } from './AttackMods';
 export { default as Attacks } from './Attacks';
 export { default as BaselineSelect } from './BaselineSelect';
+export { default as Calculator } from './Calculator';
 export { default as Checkbox } from './Checkbox';
 export { default as DamageMods } from './DamageMods';
 export { default as DiceInput } from './DiceInput';

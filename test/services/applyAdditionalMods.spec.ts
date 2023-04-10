@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AdditionalModValues } from 'types';
-import { applyAdditionalMods } from '../../src/services';
+import { applyAdditionalMods } from 'services';
 
 const createMods = (fieldName: keyof AdditionalModValues) => ({
   archeryFightingStyle: false,
