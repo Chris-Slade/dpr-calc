@@ -60,7 +60,7 @@ const Output: React.FC<{ title: string; rows: Row[] }> = ({ title, rows }) => (
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map((row) => (
+        {rows.map(row => (
           <TableRow key={row.label}>
             <TableCell>{row.label}</TableCell>
             <TableCell>
@@ -97,7 +97,7 @@ const Outputs: React.FC<Props> = ({
     additionalMods,
     baseAttackMods,
     baseDamageMods,
-    level
+    level,
   );
 
   const { accuracy, damage } = calculateDamage({
@@ -120,7 +120,7 @@ const Outputs: React.FC<Props> = ({
     baselineType,
     level,
     targetAC,
-    baselineAdvantage
+    baselineAdvantage,
   );
 
   const accuracyRows: Row[] = [

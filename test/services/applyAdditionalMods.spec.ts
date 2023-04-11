@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { AdditionalModValues } from 'types';
 import { applyAdditionalMods } from 'services';
+import { AdditionalModValues } from 'types';
 
 const createMods = (fieldName: keyof AdditionalModValues) => ({
   archeryFightingStyle: false,
@@ -17,43 +17,43 @@ describe('Additional mods', () => {
   describe('Archery', () => {
     it('Should add 2 to hit', () => {
       expect(
-        applyAdditionalMods(createMods('archeryFightingStyle'), 0, 0, 1)
+        applyAdditionalMods(createMods('archeryFightingStyle'), 0, 0, 1),
       ).to.have.members([2, 0]);
     });
   });
   describe('Dueling', () => {
     it('Should add 2 damage', () => {
       expect(
-        applyAdditionalMods(createMods('duelingFightingStyle'), 0, 0, 1)
+        applyAdditionalMods(createMods('duelingFightingStyle'), 0, 0, 1),
       ).to.have.members([0, 2]);
     });
   });
   describe('Power Attack', () => {
     it('Should add -5 to hit, +10 to damage', () => {
       expect(
-        applyAdditionalMods(createMods('powerAttack'), 7, 3, 1)
+        applyAdditionalMods(createMods('powerAttack'), 7, 3, 1),
       ).to.have.members([2, 13]);
     });
   });
   describe('Rage', () => {
-    [1, 8].forEach((level) => {
+    [1, 8].forEach(level => {
       it(`Should add 2 at level ${level}`, () => {
         expect(
-          applyAdditionalMods(createMods('rage'), 0, 0, level)
+          applyAdditionalMods(createMods('rage'), 0, 0, level),
         ).to.have.members([0, 2]);
       });
     });
-    [9, 15].forEach((level) => {
+    [9, 15].forEach(level => {
       it(`Should add 3 at level ${level}`, () => {
         expect(
-          applyAdditionalMods(createMods('rage'), 0, 0, level)
+          applyAdditionalMods(createMods('rage'), 0, 0, level),
         ).to.have.members([0, 3]);
       });
     });
-    [16, 20].forEach((level) => {
+    [16, 20].forEach(level => {
       it(`Should add 4 at level ${level}`, () => {
         expect(
-          applyAdditionalMods(createMods('rage'), 0, 0, level)
+          applyAdditionalMods(createMods('rage'), 0, 0, level),
         ).to.have.members([0, 4]);
       });
     });
@@ -62,21 +62,21 @@ describe('Additional mods', () => {
     describe('+1/+1', () => {
       it('Should add +1/+1', () => {
         expect(
-          applyAdditionalMods(createMods('plusOneWeapon'), 0, 0, 1)
+          applyAdditionalMods(createMods('plusOneWeapon'), 0, 0, 1),
         ).to.have.members([1, 1]);
       });
     });
     describe('+2/+2', () => {
       it('Should add +2/+2', () => {
         expect(
-          applyAdditionalMods(createMods('plusTwoWeapon'), 0, 0, 1)
+          applyAdditionalMods(createMods('plusTwoWeapon'), 0, 0, 1),
         ).to.have.members([2, 2]);
       });
     });
     describe('+3/+3', () => {
       it('Should add +3/+3', () => {
         expect(
-          applyAdditionalMods(createMods('plusThreeWeapon'), 0, 0, 1)
+          applyAdditionalMods(createMods('plusThreeWeapon'), 0, 0, 1),
         ).to.have.members([3, 3]);
       });
     });

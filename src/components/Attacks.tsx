@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ControlledInputProps, NumericInputValue } from 'types';
 import {
   FormControl,
   FormControlLabel,
@@ -7,8 +6,9 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
-import NumericInput from './NumericInput';
 import { cantripAttacks, fighterAttacks } from 'services';
+import { ControlledInputProps, NumericInputValue } from 'types';
+import NumericInput from './NumericInput';
 
 const { useEffect, useState } = React;
 
@@ -43,7 +43,7 @@ const Attacks: React.FC<Props> = ({ value, onChange, level }) => {
           defaultValue="manual"
           name="radio-buttons-group"
           value={inputType}
-          onChange={(e) => setInputType(e.target.value as InputType)}
+          onChange={e => setInputType(e.target.value as InputType)}
         >
           <FormControlLabel
             value="manual"

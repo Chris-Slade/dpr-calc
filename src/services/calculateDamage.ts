@@ -43,7 +43,7 @@ export default ({
     critThreshold,
     advantage,
     bonusDice,
-    penaltyDice
+    penaltyDice,
   );
 
   const critChance = chanceToCrit(critThreshold, advantage);
@@ -56,14 +56,14 @@ export default ({
         damageDice,
         damageMods,
         critBonusDice,
-        critBonus
+        critBonus,
       ) +
     firstHitBonusDamage(
       attacks,
       hitChance,
       critChance,
       firstHitBonusDice,
-      firstHitBonus
+      firstHitBonus,
     );
 
   return {

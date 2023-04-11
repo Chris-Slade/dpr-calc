@@ -7,7 +7,7 @@ export default (
   additionalMods: AdditionalModValues,
   attackMods: number,
   damageMods: number,
-  level: number
+  level: number,
 ): [number, number] => {
   if (additionalMods.archeryFightingStyle) {
     attackMods += 2;

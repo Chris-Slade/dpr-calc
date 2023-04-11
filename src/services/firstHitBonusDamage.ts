@@ -6,7 +6,7 @@ export default (
   chanceToHit: number,
   chanceToCrit: number,
   damageDice: Partial<Dice>,
-  damageMods: number
+  damageMods: number,
 ) => {
   const diceDamage = sumOfDice(damageDice);
   // P(at least 1 hit) = 1 - P(all misses) = 1 - P(miss)^attacks

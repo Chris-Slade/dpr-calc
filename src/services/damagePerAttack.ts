@@ -7,7 +7,7 @@ export default (
   damageDice: Partial<Dice>,
   damageMods: number,
   critBonusDice: Partial<Dice> = {},
-  critBonus: number = 0
+  critBonus: number = 0,
 ) => {
   const diceDamage = sumOfDice(damageDice);
   const critBonusDiceDamage = sumOfDice(critBonusDice);

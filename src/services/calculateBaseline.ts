@@ -1,4 +1,3 @@
-import { Advantage, Baseline } from 'types';
 import {
   cantripAttacks,
   chanceToCrit,
@@ -6,6 +5,7 @@ import {
   damagePerAttack,
   profBonus,
 } from 'services';
+import { Advantage, Baseline } from 'types';
 
 /*
  * The DPR baseline is a warlock who starts with 16 CHA, increases it to 18 at
@@ -21,13 +21,13 @@ const agonizingBlastDamage = (level: number) =>
 const warlockBaseline = (
   level: number,
   targetAC: number,
-  advantage: Advantage
+  advantage: Advantage,
 ) => {
   const accuracy = chanceToHit(
     charismaPerLevel(level) + profBonus(level),
     targetAC,
     20,
-    advantage
+    advantage,
   );
   const damage =
     cantripAttacks(level) *
@@ -42,7 +42,7 @@ const warlockBaseline = (
         d12: 0,
         d20: 0,
       },
-      agonizingBlastDamage(level)
+      agonizingBlastDamage(level),
     );
 
   return {
@@ -57,7 +57,7 @@ const fighterAttacks = (level: number) =>
 const fighterBaseline = (
   level: number,
   targetAC: number,
-  advantage: Advantage
+  advantage: Advantage,
 ) => {
   const dex = level >= 8 ? 5 : level >= 6 ? 4 : 3;
   const pb = profBonus(level);
@@ -74,7 +74,7 @@ const fighterBaseline = (
       accuracy,
       chanceToCrit(20, advantage),
       { d6: 1 },
-      dex + sharpshooterDamage
+      dex + sharpshooterDamage,
     );
 
   return { accuracy, damage };
@@ -83,7 +83,7 @@ const fighterBaseline = (
 const rogueBaseline = (
   level: number,
   targetAC: number,
-  advantage: Advantage
+  advantage: Advantage,
 ) => {
   const dex = level >= 8 ? 5 : level >= 4 ? 4 : 3;
   const pb = profBonus(level);
@@ -94,7 +94,7 @@ const rogueBaseline = (
     accuracy,
     chanceToCrit(20, advantage),
     { d8: 1, d6: sneakAttackDice },
-    dex
+    dex,
   );
 
   return { accuracy, damage };
@@ -104,7 +104,7 @@ export default (
   type: Baseline,
   level: number,
   targetAC: number,
-  advantage: Advantage
+  advantage: Advantage,
 ) => {
   switch (type) {
     case 'warlock':

@@ -9,13 +9,13 @@ describe('sum of dice', () => {
 
   it('should handle different dice', () => {
     expect(sumOfDice({ d4: 1, d6: 1, d8: 1, d10: 1, d12: 1, d20: 1 })).to.equal(
-      33
+      33,
     );
   });
 
   it('should handle a mix of both', () => {
     expect(sumOfDice({ d4: 1, d6: 2, d8: 3, d10: 4, d12: 5, d20: 6 })).to.equal(
-      140.5
+      140.5,
     );
   });
 
@@ -29,7 +29,7 @@ describe('sum of dice', () => {
         d4: 2,
         d6: undefined,
         d8: 2,
-      })
+      }),
     ).to.equal(14);
   });
 });

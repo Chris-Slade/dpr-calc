@@ -13,7 +13,7 @@ describe('chanceToCrit', () => {
     it('should return 0.0975', () => {
       expect(chanceToCrit(20, 'advantage')).to.be.approximately(
         0.0975,
-        EPSILON
+        EPSILON,
       );
     });
   });
@@ -21,7 +21,7 @@ describe('chanceToCrit', () => {
     it('should return 0.0025', () => {
       expect(chanceToCrit(20, 'disadvantage')).to.be.approximately(
         0.0025,
-        EPSILON
+        EPSILON,
       );
     });
   });
@@ -40,7 +40,7 @@ describe('chanceToCrit', () => {
     it('should return 0.01', () => {
       expect(chanceToCrit(19, 'disadvantage')).to.be.approximately(
         0.01,
-        EPSILON
+        EPSILON,
       );
     });
   });
@@ -49,7 +49,7 @@ describe('chanceToCrit', () => {
     it('should be 95.7125%', () => {
       expect(chanceToCrit(20, 'super_advantage')).to.be.approximately(
         0.142625,
-        EPSILON
+        EPSILON,
       );
     });
   });
@@ -57,7 +57,7 @@ describe('chanceToCrit', () => {
     it('should be 27.1%', () => {
       expect(chanceToCrit(19, 'super_advantage')).to.be.approximately(
         0.271,
-        EPSILON
+        EPSILON,
       );
     });
   });

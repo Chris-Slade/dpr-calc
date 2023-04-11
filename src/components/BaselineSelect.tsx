@@ -1,6 +1,4 @@
 import React from 'react';
-import Value from 'types/Baseline';
-import { ControlledInputProps } from 'types';
 import {
   Box,
   FormControl,
@@ -9,6 +7,8 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
+import { ControlledInputProps } from 'types';
+import Value from 'types/Baseline';
 
 interface Props extends ControlledInputProps<Value> {}
 
@@ -23,7 +23,7 @@ const BaselineSelect: React.FC<Props> = ({ value, onChange }) => {
           name="radio-buttons-group"
           row
           value={value}
-          onChange={(e) => onChange(e.target.value as Value)}
+          onChange={e => onChange(e.target.value as Value)}
         >
           <FormControlLabel
             value="warlock"

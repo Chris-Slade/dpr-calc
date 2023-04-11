@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { OutlinedTextFieldProps, TextField } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { ControlledInputProps } from 'types';
 import Value from 'types/NumericInputValue';
-import { styled } from '@mui/material/styles';
 
 type Props = ControlledInputProps<Value> &
   Omit<OutlinedTextFieldProps, 'value' | 'onChange' | 'variant'>;
@@ -22,7 +22,7 @@ const NumericInput: React.FC<Props> = ({ value, onChange, ...rest }) => (
     variant="outlined"
     type="number"
     value={value || ''}
-    onChange={(e) => onChange(parse(e.target.value))}
+    onChange={e => onChange(parse(e.target.value))}
     {...rest}
   />
 );

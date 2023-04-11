@@ -15,7 +15,7 @@ const WEAPON_FIELDS: (keyof AdditionalModValues)[] = [
 
 const useUpdateHandler = (
   onChange: ControlledInputProps<AdditionalModValues>['onChange'],
-  fieldName: keyof AdditionalModValues
+  fieldName: keyof AdditionalModValues,
 ) =>
   useCallback(
     (newValue: boolean) => {
@@ -26,13 +26,13 @@ const useUpdateHandler = (
         };
         // +X weapons are mutually exclusive.
         if (WEAPON_FIELDS.includes(fieldName) && newValue) {
-          WEAPON_FIELDS.forEach((weapon) => (newValues[weapon] = false));
+          WEAPON_FIELDS.forEach(weapon => (newValues[weapon] = false));
           newValues[fieldName] = true;
         }
         return newValues;
       });
     },
-    [onChange, fieldName]
+    [onChange, fieldName],
   ) as React.Dispatch<React.SetStateAction<boolean>>;
 
 const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {

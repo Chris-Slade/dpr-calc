@@ -1,7 +1,7 @@
+import React from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Calculator } from 'components';
 import Head from 'next/head';
-import React from 'react';
 import theme from '../theme';
 
 export default function Home() {

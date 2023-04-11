@@ -28,7 +28,7 @@ describe('full damage calculation', () => {
       DEFAULT_ADDITIONAL_MODS,
       5 + 4,
       5,
-      9
+      9,
     );
     expect(
       calculateDamage({
@@ -45,7 +45,7 @@ describe('full damage calculation', () => {
         firstHitBonusDice: { d6: 5 },
         critBonus: 0,
         critBonusDice: DEFAULT_DICE,
-      }).damage
+      }).damage,
     ).to.be.approximately(29.3125, EPSILON);
   });
 
@@ -59,7 +59,7 @@ describe('full damage calculation', () => {
       },
       5 + 4,
       5,
-      11
+      11,
     );
     expect(
       calculateDamage({
@@ -76,7 +76,7 @@ describe('full damage calculation', () => {
         firstHitBonusDice: DEFAULT_DICE,
         critBonus: 0,
         critBonusDice: DEFAULT_DICE,
-      }).damage
+      }).damage,
     ).to.be.approximately(48.2, EPSILON);
   });
 
@@ -89,7 +89,7 @@ describe('full damage calculation', () => {
       },
       5 + 4,
       5,
-      9
+      9,
     );
     expect(
       calculateDamage({
@@ -106,7 +106,7 @@ describe('full damage calculation', () => {
         firstHitBonusDice: DEFAULT_DICE,
         critBonus: 7,
         critBonusDice: { ...DEFAULT_DICE, d12: 2 },
-      }).damage
+      }).damage,
     ).to.be.approximately(39.345, EPSILON);
   });
 
@@ -118,7 +118,7 @@ describe('full damage calculation', () => {
       },
       5 + 5,
       5,
-      15
+      15,
     );
     expect(
       calculateDamage({
@@ -135,7 +135,7 @@ describe('full damage calculation', () => {
         firstHitBonusDice: DEFAULT_DICE,
         penaltyDice: DEFAULT_DICE,
         targetAC: 18,
-      }).damage
+      }).damage,
     ).to.be.approximately(36.7375, EPSILON);
   });
 });

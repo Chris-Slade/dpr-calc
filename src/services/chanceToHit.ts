@@ -42,7 +42,7 @@ const toHit = (
   toHitMods: number,
   targetAC: number,
   critThreshold: number,
-  advantage: Advantage
+  advantage: Advantage,
 ) => {
   // You always have at least a (21 - critThreshold) / 20 chance of hitting due
   // to crits and a 1/20 chance of missing due to crit failure. Otherwise it's
@@ -65,7 +65,7 @@ export default (
   critThreshold: number,
   advantage: Advantage = 'normal',
   bonusDice: Partial<Dice> = {},
-  penaltyDice: Partial<Dice> = {}
+  penaltyDice: Partial<Dice> = {},
 ) => {
   const bonusDist = sumOfDiceDist(bonusDice);
   const penaltyDist = sumOfDiceDist(penaltyDice);

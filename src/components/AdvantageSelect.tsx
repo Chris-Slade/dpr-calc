@@ -7,8 +7,8 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
-import Value from 'types/Advantage';
 import { ControlledInputProps } from 'types';
+import Value from 'types/Advantage';
 
 interface Props extends ControlledInputProps<Value> {
   label: string;
@@ -25,7 +25,7 @@ const AdvantageSelect: React.FC<Props> = ({ label, value, onChange }) => {
           name="radio-buttons-group"
           row
           value={value}
-          onChange={(e) => onChange(e.target.value as Value)}
+          onChange={e => onChange(e.target.value as Value)}
         >
           <FormControlLabel value="normal" control={<Radio />} label="Normal" />
           <FormControlLabel

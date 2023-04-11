@@ -108,7 +108,7 @@ const Calculator: React.FC = () => {
           label="Show Advanced Options"
           value={showAdvancedAccuracy}
           onChange={() => {
-            setShowAdvancedAccuracy((v) => !v);
+            setShowAdvancedAccuracy(v => !v);
           }}
         />
         {showAdvancedAccuracy && (
@@ -172,7 +172,7 @@ const Calculator: React.FC = () => {
           label="Show Advanced Options"
           value={showAdvancedDamage}
           onChange={() => {
-            setShowAdvancedDamage((v) => !v);
+            setShowAdvancedDamage(v => !v);
           }}
         />
         {showAdvancedDamage && (

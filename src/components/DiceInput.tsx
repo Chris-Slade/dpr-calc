@@ -31,7 +31,7 @@ const DieInput: React.FC<{
     label={die}
     name={die}
     value={value[die]}
-    onChange={(newValue) =>
+    onChange={newValue =>
       onChange({
         ...value,
         [die]: newValue,
