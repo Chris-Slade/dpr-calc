@@ -1,50 +1,42 @@
 import {
-  applyAdditionalMods,
   chanceToCrit,
   chanceToHit,
   damagePerAttack,
   firstHitBonusDamage,
 } from 'services';
-import { AdditionalModValues, Advantage, Dice } from 'types';
+import { Advantage, Dice } from 'types';
 
 interface Args {
-  additionalMods: AdditionalModValues;
   advantage: Advantage;
+  attackMods: number;
   attacks: number;
-  baseAttackMods: number;
-  baseDamageMods: number;
   bonusDice: Partial<Dice>;
+  critBonus: number;
+  critBonusDice: Partial<Dice>;
   critThreshold: number;
   damageDice: Partial<Dice>;
+  damageMods: number;
   firstHitBonus: number;
   firstHitBonusDice: Partial<Dice>;
-  level: number;
   penaltyDice: Partial<Dice>;
   targetAC: number;
 }
 
 export default ({
-  additionalMods,
   advantage,
+  attackMods,
   attacks,
-  baseAttackMods,
-  baseDamageMods,
   bonusDice,
+  critBonus,
+  critBonusDice,
   critThreshold,
   damageDice,
+  damageMods,
   firstHitBonus,
   firstHitBonusDice,
-  level,
   penaltyDice,
   targetAC,
 }: Args) => {
-  const [attackMods, damageMods] = applyAdditionalMods(
-    additionalMods,
-    baseAttackMods,
-    baseDamageMods,
-    level
-  );
-  const critChance = chanceToCrit(critThreshold, advantage);
   const hitChance = chanceToHit(
     attackMods,
     targetAC,
@@ -54,14 +46,28 @@ export default ({
     penaltyDice
   );
 
-  return (
-    attacks * damagePerAttack(hitChance, critChance, damageDice, damageMods) +
+  const critChance = chanceToCrit(critThreshold, advantage);
+
+  const damage =
+    attacks *
+      damagePerAttack(
+        hitChance,
+        critChance,
+        damageDice,
+        damageMods,
+        critBonusDice,
+        critBonus
+      ) +
     firstHitBonusDamage(
       attacks,
       hitChance,
-      chanceToCrit(critThreshold, advantage),
+      critChance,
       firstHitBonusDice,
       firstHitBonus
-    )
-  );
+    );
+
+  return {
+    accuracy: hitChance,
+    damage,
+  };
 };

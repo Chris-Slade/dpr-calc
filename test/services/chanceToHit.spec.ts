@@ -232,7 +232,7 @@ describe('chance to hit', () => {
     });
   });
 
-  describe('test', () => {
+  describe('bonus and penalty dice', () => {
     it('should be 0.4', () => {
       expect(
         chanceToHit(6, 18, 19, 'normal', { d4: 1 }, { d6: 1 })

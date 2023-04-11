@@ -14,10 +14,7 @@ import { BaselineSelect, Number } from 'components';
 import {
   applyAdditionalMods,
   calculateBaseline,
-  chanceToCrit,
-  chanceToHit,
-  damagePerAttack,
-  firstHitBonusDamage,
+  calculateDamage,
 } from 'services';
 import { AdditionalModValues, Advantage, Baseline, Dice } from 'types';
 
@@ -28,6 +25,8 @@ interface Props {
   attacks: number;
   baselineAdvantage: Advantage;
   bonusDice: Partial<Dice>;
+  critBonus: number;
+  critBonusDice: Partial<Dice>;
   critThreshold: number;
   damageDice: Dice;
   damageMods: number;
@@ -81,6 +80,8 @@ const Outputs: React.FC<Props> = ({
   attacks,
   baselineAdvantage,
   bonusDice,
+  critBonus,
+  critBonusDice,
   critThreshold,
   damageDice,
   damageMods: baseDamageMods,
@@ -98,25 +99,22 @@ const Outputs: React.FC<Props> = ({
     baseDamageMods,
     level
   );
-  const critChance = chanceToCrit(critThreshold, advantage);
-  const accuracy = chanceToHit(
-    attackMods,
-    targetAC,
-    critThreshold,
-    advantage,
-    bonusDice,
-    penaltyDice
-  );
 
-  const damage =
-    attacks * damagePerAttack(accuracy, critChance, damageDice, damageMods) +
-    firstHitBonusDamage(
-      attacks,
-      accuracy,
-      chanceToCrit(critThreshold, advantage),
-      firstHitBonusDice,
-      firstHitBonus
-    );
+  const { accuracy, damage } = calculateDamage({
+    advantage,
+    attackMods,
+    attacks,
+    bonusDice,
+    critBonus,
+    critBonusDice,
+    critThreshold,
+    damageDice,
+    damageMods,
+    firstHitBonus,
+    firstHitBonusDice,
+    penaltyDice,
+    targetAC,
+  });
 
   const baseline = calculateBaseline(
     baselineType,

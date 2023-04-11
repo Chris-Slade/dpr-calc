@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Tooltip, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
   AdditionalMods,
@@ -74,6 +74,8 @@ const Calculator: React.FC = () => {
   const [showAdvancedDamage, setShowAdvancedDamage] = useState(false);
   const [firstHitBonus, setFirstHitBonus] = useState<NumericInputValue>(0);
   const [firstHitBonusDice, setFirstHitBonusDice] = useState(DEFAULT_DICE);
+  const [critBonus, setCritBonus] = useState<NumericInputValue>(0);
+  const [critBonusDice, setCritBonusDice] = useState(DEFAULT_DICE);
 
   const pb = profBonus(level);
 
@@ -187,6 +189,22 @@ const Calculator: React.FC = () => {
               value={firstHitBonusDice}
               onChange={setFirstHitBonusDice}
             />
+            <NumericInput
+              label="Critical-Hit Bonus Damage"
+              title="Bonus damage dealt on a critical (e.g. Vicious Weapon, Weapon of Life Stealing)."
+              value={critBonus}
+              onChange={setCritBonus}
+            />
+            <DiceInput
+              label="Critical-Hit Bonus Dice"
+              title={
+                'Bonus damage dice on a critical (e.g. Brutal Critical, Savage Attacks).' +
+                ' Note that the doubling of your damage dice is done automatically; this' +
+                ' is only for additional dice from other features.'
+              }
+              value={critBonusDice}
+              onChange={setCritBonusDice}
+            />
           </>
         )}
       </Section>
@@ -200,6 +218,8 @@ const Calculator: React.FC = () => {
           attacks={attacks}
           baselineAdvantage={baselineAdvantage}
           bonusDice={bonusDice}
+          critBonus={critBonus}
+          critBonusDice={critBonusDice}
           critThreshold={critThreshold}
           damageDice={damageDice}
           damageMods={damageMods}
