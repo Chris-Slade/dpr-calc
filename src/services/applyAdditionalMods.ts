@@ -1,4 +1,5 @@
 import { AdditionalModValues } from 'types';
+import { profBonus } from 'services';
 
 const rageDamageByLevel = (level: number) =>
   level < 9 ? 2 : level < 16 ? 3 : 4;
@@ -30,6 +31,9 @@ export default (
   if (additionalMods.powerAttack) {
     attackMods -= 5;
     damageMods += 10;
+  }
+  if (additionalMods.proficient) {
+    attackMods += profBonus(level);
   }
   if (additionalMods.rage) {
     damageMods += rageDamageByLevel(level);

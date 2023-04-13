@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 import {
   AdditionalMods,
   AdvantageSelect,
-  AttackMods,
   Attacks,
   DamageInput,
   DiceInput,
@@ -52,12 +51,12 @@ const Calculator: React.FC = () => {
     archeryFightingStyle: false,
     duelingFightingStyle: false,
     powerAttack: false,
+    proficient: false,
     plusOneWeapon: false,
     plusTwoWeapon: false,
     plusThreeWeapon: false,
     rage: false,
   });
-  const [proficient, setProficient] = useState<boolean>(false);
   const [level, setLevel] = useState<NumericInputValue>(1);
   const [critThreshold, setCritThreshold] = useState<number>(20);
   const [bonusDice, setBonusDice] = useState(DEFAULT_DICE);
@@ -96,14 +95,14 @@ const Calculator: React.FC = () => {
             },
           }}
         />
-        <AttackMods
+        <NumericInput
+          label="Attack Mods"
+          title="Any modifiers to hit besides proficiency bonus, such as your attack modifier, Archery, Sharpshooter, +1/2/3 weapons, etc."
           value={attackMods}
           onChange={setAttackMods}
-          proficient={proficient}
-          setProficient={setProficient}
-          level={level}
         />
         <TargetAC value={targetAC} onChange={setTargetAC} level={level} />
+        <AdditionalMods value={additionalMods} onChange={setAdditionalMods} />
         <Switch
           label="Show Advanced Options"
           value={showAdvancedAccuracy}
@@ -113,6 +112,16 @@ const Calculator: React.FC = () => {
         />
         {showAdvancedAccuracy && (
           <>
+            <AdvantageSelect
+              label="Advantage/Disadvantage"
+              value={advantage}
+              onChange={setAdvantage}
+            />
+            <AdvantageSelect
+              label="Baseline Advantage/Disadvantage"
+              value={baselineAdvantage}
+              onChange={setBaselineAdvantage}
+            />
             <NumericInput
               label="Crit Threshold"
               title="The minimum roll on the d20 needed to get a critical hit."
@@ -125,10 +134,6 @@ const Calculator: React.FC = () => {
               value={critThreshold}
               onChange={setCritThreshold}
             />
-            <AdditionalMods
-              value={additionalMods}
-              onChange={setAdditionalMods}
-            />
             <DiceInput
               label="Bonus Dice"
               title="Any dice that are added to your to-hit bonus (e.g. Bless)."
@@ -140,16 +145,6 @@ const Calculator: React.FC = () => {
               title="Any dice that are subtracted from your to-hit bonus (e.g. Bane)."
               value={penaltyDice}
               onChange={setPenaltyDice}
-            />
-            <AdvantageSelect
-              label="Advantage/Disadvantage"
-              value={advantage}
-              onChange={setAdvantage}
-            />
-            <AdvantageSelect
-              label="Baseline Advantage/Disadvantage"
-              value={baselineAdvantage}
-              onChange={setBaselineAdvantage}
             />
           </>
         )}
@@ -170,7 +165,7 @@ const Calculator: React.FC = () => {
           setDamageMods={setDamageMods}
           damageDice={damageDice}
           setDamageDice={setDamageDice}
-          attackModDefault={proficient ? attackMods - pb : attackMods}
+          attackModDefault={attackMods}
         />
         <Switch
           label="Show Advanced Options"

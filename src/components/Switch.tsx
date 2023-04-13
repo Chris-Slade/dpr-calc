@@ -24,7 +24,6 @@ const Switch: React.FC<Props> = ({ value, onChange, label, ...rest }) => {
         />
       }
       label={label}
-      sx={{ marginLeft: 'unset' }}
     />
   );
 };

@@ -11,12 +11,20 @@ type Props = ControlledInputProps<boolean> &
     label: string;
   };
 
-const Checkbox: React.FC<Props> = ({ value, onChange, label, ...rest }) => {
+const Checkbox: React.FC<Props> = ({
+  value,
+  onChange,
+  label,
+  title,
+  ...rest
+}) => {
   return (
     <FormControlLabel
+      title={title}
       control={
         <MuiCheckbox
           {...rest}
+          title={title}
           checked={value}
           onChange={(_, checked) => {
             onChange(checked);

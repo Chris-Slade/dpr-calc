@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FormGroup, FormLabel } from '@mui/material';
-import { Switch } from 'components';
+import { Checkbox } from 'components';
 import { AdditionalModValues, ControlledInputProps } from 'types';
 
 const { useCallback } = React;
@@ -39,41 +39,46 @@ const AdditionalMods: React.FC<Props> = ({ value, onChange }) => {
   return (
     <FormGroup>
       <FormLabel component="legend">Additional Bonuses</FormLabel>
-      <Switch
+      <Checkbox
         label="Archery FS"
         title="Archery Fighting Style (+2 to hit)."
         value={value.archeryFightingStyle}
         onChange={useUpdateHandler(onChange, 'archeryFightingStyle')}
       />
-      <Switch
+      <Checkbox
         label="Dueling FS"
         title="Dueling Fighting Style (+2 damage; also works for Thrown-Weapon Fighting Style)."
         value={value.duelingFightingStyle}
         onChange={useUpdateHandler(onChange, 'duelingFightingStyle')}
       />
-      <Switch
+      <Checkbox
         label="Power Attack (-5/+10)"
         title="Power Attacks for Sharpshooter or Great Weapon Master."
         value={value.powerAttack}
         onChange={useUpdateHandler(onChange, 'powerAttack')}
       />
-      <Switch
+      <Checkbox
+        label="Proficiency Bonus"
+        value={value.proficient}
+        onChange={useUpdateHandler(onChange, 'proficient')}
+      />
+      <Checkbox
         label="Rage"
         title="Barbarian Rage"
         value={value.rage}
         onChange={useUpdateHandler(onChange, 'rage')}
       />
-      <Switch
+      <Checkbox
         label="+1 Weapon (+1/+1)"
         value={value.plusOneWeapon}
         onChange={useUpdateHandler(onChange, 'plusOneWeapon')}
       />
-      <Switch
+      <Checkbox
         label="+2 Weapon (+2/+2)"
         value={value.plusTwoWeapon}
         onChange={useUpdateHandler(onChange, 'plusTwoWeapon')}
       />
-      <Switch
+      <Checkbox
         label="+3 Weapon (+3/+3)"
         value={value.plusThreeWeapon}
         onChange={useUpdateHandler(onChange, 'plusThreeWeapon')}

@@ -34,8 +34,8 @@ const DamageMods: React.FC<Props> = ({
       />
       {attackModDefault != null ? (
         <Checkbox
-          label="Same as attack mod"
-          title="If checked, the attack mod minus your Proficiency Bonus will be used as the damage mod."
+          label="Use attack mod"
+          title="If checked, the attack mod will be used as the damage mod."
           value={useAttackMod}
           onChange={setUseAttackMod}
         />

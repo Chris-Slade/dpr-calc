@@ -5,6 +5,7 @@ interface AdditionalModValues {
   plusThreeWeapon: boolean;
   plusTwoWeapon: boolean;
   powerAttack: boolean;
+  proficient: boolean;
   rage: boolean;
 }
 

@@ -10,6 +10,7 @@ const DEFAULT_ADDITIONAL_MODS: Readonly<AdditionalModValues> = {
   plusThreeWeapon: false,
   plusTwoWeapon: false,
   powerAttack: false,
+  proficient: false,
   rage: false,
 };
 
@@ -25,8 +26,8 @@ const DEFAULT_DICE: Readonly<Dice> = {
 describe('full damage calculation', () => {
   it('9th-level sneak attacking CBE rogue attacking twice', () => {
     const [attackMods, damageMods] = applyAdditionalMods(
-      DEFAULT_ADDITIONAL_MODS,
-      5 + 4,
+      { ...DEFAULT_ADDITIONAL_MODS, proficient: true },
+      5,
       5,
       9,
     );
@@ -56,8 +57,9 @@ describe('full damage calculation', () => {
         archeryFightingStyle: true,
         plusOneWeapon: true,
         powerAttack: true,
+        proficient: true,
       },
-      5 + 4,
+      5,
       5,
       11,
     );
@@ -85,9 +87,10 @@ describe('full damage calculation', () => {
       {
         ...DEFAULT_ADDITIONAL_MODS,
         powerAttack: true,
+        proficient: true,
         rage: true,
       },
-      5 + 4,
+      5,
       5,
       9,
     );
@@ -115,9 +118,10 @@ describe('full damage calculation', () => {
       {
         ...DEFAULT_ADDITIONAL_MODS,
         powerAttack: true,
+        proficient: true,
         rage: true,
       },
-      5 + 4,
+      5,
       5,
       9,
     );
@@ -146,8 +150,9 @@ describe('full damage calculation', () => {
       {
         ...DEFAULT_ADDITIONAL_MODS,
         plusThreeWeapon: true,
+        proficient: true,
       },
-      5 + 5,
+      5,
       5,
       15,
     );

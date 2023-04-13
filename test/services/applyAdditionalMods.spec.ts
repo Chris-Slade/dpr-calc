@@ -9,6 +9,7 @@ const createMods = (fieldName: keyof AdditionalModValues) => ({
   plusThreeWeapon: false,
   plusTwoWeapon: false,
   powerAttack: false,
+  proficient: false,
   rage: false,
   [fieldName]: true,
 });
