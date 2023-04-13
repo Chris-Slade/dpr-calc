@@ -6,7 +6,7 @@ import {
   AdvantageSelect,
   AttackMods,
   Attacks,
-  DamageMods,
+  DamageInput,
   DiceInput,
   NumericInput,
   Outputs,
@@ -158,15 +158,19 @@ const Calculator: React.FC = () => {
       <Section>
         <Typography variant="h5">Damage</Typography>
         <Attacks level={level} value={attacks} onChange={setAttacks} />
-        <DamageMods
-          value={damageMods}
-          onChange={setDamageMods}
-          attackModifiersSansPb={proficient ? attackMods - pb : attackMods}
-        />
-        <DiceInput
-          label="Damage Dice"
-          value={damageDice}
-          onChange={setDamageDice}
+        <DamageInput
+          label="Damage"
+          title={
+            'The dice and modifiers that make up your base attack damage,' +
+            ' such as your attack modifier, Sharpshooter, +1/+2/+3 weapons,' +
+            ' Improved Divine Smite, etc. Shortcuts for common bonuses can be' +
+            ' found in the advanced options of the Accuracy section.'
+          }
+          damageMods={damageMods}
+          setDamageMods={setDamageMods}
+          damageDice={damageDice}
+          setDamageDice={setDamageDice}
+          attackModDefault={proficient ? attackMods - pb : attackMods}
         />
         <Switch
           label="Show Advanced Options"
@@ -177,33 +181,26 @@ const Calculator: React.FC = () => {
         />
         {showAdvancedDamage && (
           <>
-            <NumericInput
+            <DamageInput
               label="First-Hit Bonus Damage"
-              title="Bonus damage that is only dealt on the first hit you make on a turn."
-              value={firstHitBonus}
-              onChange={setFirstHitBonus}
+              title="Bonus damage that is only dealt on the first hit you make on a turn (e.g. Sneak Attack, Favored Foe)."
+              damageMods={firstHitBonus}
+              setDamageMods={setFirstHitBonus}
+              damageDice={firstHitBonusDice}
+              setDamageDice={setFirstHitBonusDice}
             />
-            <DiceInput
-              label="First-Hit Bonus Dice"
-              title="Bonus damage dice that are only dealt on the first hit you make on a turn (e.g. Sneak Attack)."
-              value={firstHitBonusDice}
-              onChange={setFirstHitBonusDice}
-            />
-            <NumericInput
+            <DamageInput
               label="Critical-Hit Bonus Damage"
-              title="Bonus damage dealt on a critical (e.g. Vicious Weapon, Weapon of Life Stealing)."
-              value={critBonus}
-              onChange={setCritBonus}
-            />
-            <DiceInput
-              label="Critical-Hit Bonus Dice"
               title={
-                'Bonus damage dice on a critical (e.g. Brutal Critical, Savage Attacks).' +
-                ' Note that the doubling of your damage dice is done automatically; this' +
-                ' is only for additional dice from other features.'
+                'Bonus damage dealt on a critical (e.g. Brutal Critical,' +
+                ' Vicious Weapon). Note that the doubling of your damage' +
+                ' dice on a crit is done automatically; this is only for' +
+                ' additional dice from other features.'
               }
-              value={critBonusDice}
-              onChange={setCritBonusDice}
+              damageMods={critBonus}
+              setDamageMods={setCritBonus}
+              damageDice={critBonusDice}
+              setDamageDice={setCritBonusDice}
             />
           </>
         )}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   FormControlLabel,
   Switch as MuiSwitch,
@@ -24,6 +24,7 @@ const Switch: React.FC<Props> = ({ value, onChange, label, ...rest }) => {
         />
       }
       label={label}
+      sx={{ marginLeft: 'unset' }}
     />
   );
 };

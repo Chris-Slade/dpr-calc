@@ -1,45 +1,46 @@
-import * as React from 'react';
-import { Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Stack } from '@mui/material';
 import { Checkbox, NumericInput } from 'components';
 import { ControlledInputProps, NumericInputValue } from 'types';
 
-const { useEffect, useState } = React;
-
 interface Props extends ControlledInputProps<NumericInputValue> {
-  attackModifiersSansPb: number;
+  title: string;
+  attackModDefault?: number;
 }
 
 const DamageMods: React.FC<Props> = ({
-  attackModifiersSansPb,
+  title,
   value,
   onChange,
+  attackModDefault,
 }) => {
   const [useAttackMod, setUseAttackMod] = useState<boolean>(false);
 
   useEffect(() => {
-    if (useAttackMod) {
-      onChange(attackModifiersSansPb);
+    if (useAttackMod && attackModDefault != null) {
+      onChange(attackModDefault);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [useAttackMod, attackModifiersSansPb]);
+  }, [useAttackMod, attackModDefault]);
 
   return (
-    <Box display="flex" flexDirection="row" flexWrap="wrap" gap={3}>
+    <Stack flexDirection="row" gap={3}>
       <NumericInput
-        sx={{ flexGrow: 1 }}
-        label="Damage Mods"
-        title="Any modifiers to damage, such as your attack modifier, Sharpshooter, +1/+2/+3 weapons, etc."
+        label="Modifiers"
+        title={title}
         value={value}
         onChange={onChange}
         disabled={useAttackMod}
       />
-      <Checkbox
-        label="Same as attack mod"
-        title="If checked, the attack mod minus your Proficiency Bonus will be used as the damage mod."
-        value={useAttackMod}
-        onChange={setUseAttackMod}
-      />
-    </Box>
+      {attackModDefault != null ? (
+        <Checkbox
+          label="Same as attack mod"
+          title="If checked, the attack mod minus your Proficiency Bonus will be used as the damage mod."
+          value={useAttackMod}
+          onChange={setUseAttackMod}
+        />
+      ) : null}
+    </Stack>
   );
 };
 

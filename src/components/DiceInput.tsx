@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Box, FormLabel, styled } from '@mui/material';
-import { ControlledInputProps, Dice as Value, Die } from 'types';
+import React from 'react';
+import { Box, FormLabel, Stack, styled } from '@mui/material';
+import { ControlledInputProps, Die, Dice as Value } from 'types';
 import NumericInput from './NumericInput';
 
 interface Props extends ControlledInputProps<Value> {
@@ -41,15 +41,22 @@ const DieInput: React.FC<{
   />
 );
 
-const DiceInput: React.FC<Props> = ({ label, title, value, onChange }) => (
-  <Box display="flex" flexDirection="column" title={title}>
+const DiceInput = ({
+  label,
+  title,
+  value,
+  onChange,
+  children,
+}: React.PropsWithChildren<Props>) => (
+  <Stack flexDirection="column" title={title}>
     <FormLabel sx={{ marginBottom: 3 }}>{label}</FormLabel>
     <InputGrid>
       {dice.map((die, key) => (
         <DieInput key={key} die={die} value={value} onChange={onChange} />
       ))}
+      {children}
     </InputGrid>
-  </Box>
+  </Stack>
 );
 
 export default DiceInput;

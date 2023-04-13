@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  Box,
   FormControl,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
+  Stack,
   Typography,
 } from '@mui/material';
 import { ControlledInputProps } from 'types';
@@ -14,19 +14,14 @@ import Value from 'types/Baseline';
 interface Props extends ControlledInputProps<Value> {}
 
 const Paragraph = ({ children }: React.PropsWithChildren) => (
-  <Typography
-    component="p"
-    variant="subtitle2"
-    maxWidth="80ch"
-    sx={{ textIndent: '4ch', maxWidth: '80ch' }}
-  >
+  <Typography component="p" variant="subtitle2" maxWidth="60ch">
     {children}
   </Typography>
 );
 
 const BaselineSelect: React.FC<Props> = ({ value, onChange }) => {
   return (
-    <Box sx={{ flex: 1 }}>
+    <Stack gap={3}>
       <FormControl component="fieldset">
         <FormLabel component="legend">Baseline Type</FormLabel>
         <RadioGroup
@@ -64,7 +59,7 @@ const BaselineSelect: React.FC<Props> = ({ value, onChange }) => {
         The rogue baseline starts with 16 DEX and uses a rapier with Sneak
         Attack. It increases DEX to 18 at 4th level and 20 at 8th level.
       </Paragraph>
-    </Box>
+    </Stack>
   );
 };
 
