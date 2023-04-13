@@ -5,6 +5,7 @@ import {
   firstHitBonusDamage,
 } from 'services';
 import { Advantage, Dice } from 'types';
+import chanceOfAtLeastOneHit from './chanceOfAtLeastOneHit';
 
 interface Args {
   advantage: Advantage;
@@ -48,26 +49,35 @@ export default ({
 
   const critChance = chanceToCrit(critThreshold, advantage);
 
-  const damage =
-    attacks *
-      damagePerAttack(
-        hitChance,
-        critChance,
-        damageDice,
-        damageMods,
-        critBonusDice,
-        critBonus,
-      ) +
-    firstHitBonusDamage(
-      attacks,
-      hitChance,
-      critChance,
-      firstHitBonusDice,
-      firstHitBonus,
-    );
+  const { atLeastOneHit, atLeastOneCrit, firstHitCrits } =
+    chanceOfAtLeastOneHit(attacks, hitChance, critChance);
+
+  const dpa = damagePerAttack(
+    hitChance,
+    critChance,
+    damageDice,
+    damageMods,
+    critBonusDice,
+    critBonus,
+  );
+
+  const bonus = firstHitBonusDamage(
+    atLeastOneHit,
+    firstHitCrits,
+    firstHitBonusDice,
+    firstHitBonus,
+  );
+
+  const damage = attacks * dpa + bonus;
 
   return {
-    accuracy: hitChance,
+    accuracy: {
+      hitChance,
+      critChance,
+      atLeastOneHit,
+      atLeastOneCrit,
+      firstHitCrits,
+    },
     damage,
   };
 };

@@ -211,24 +211,34 @@ describe('chance to hit', () => {
           50,
           19,
           'advantage',
-          {
-            d4: 1,
-            d6: 2,
-            d8: 3,
-            d10: 4,
-            d12: 5,
-            d20: 6,
-          },
-          {
-            d4: 6,
-            d6: 5,
-            d8: 4,
-            d10: 3,
-            d12: 2,
-            d20: 1,
-          },
+          { d4: 1, d6: 2, d8: 3, d10: 4, d12: 5, d20: 6 },
+          { d4: 6, d6: 5, d8: 4, d10: 3, d12: 2, d20: 1 },
         ),
       ).to.be.approximately(0.891196525057, EPSILON);
+    });
+    it('should be 0.915203416987', () => {
+      expect(
+        chanceToHit(
+          11,
+          50,
+          19,
+          'super_advantage',
+          { d4: 1, d6: 2, d8: 3, d10: 4, d12: 5, d20: 6 },
+          { d4: 6, d6: 5, d8: 4, d10: 3, d12: 2, d20: 1 },
+        ),
+      ).to.be.approximately(0.915203416987, EPSILON);
+    });
+    it('should be 0.73643548532', () => {
+      expect(
+        chanceToHit(
+          11,
+          50,
+          19,
+          'disadvantage',
+          { d4: 1, d6: 2, d8: 3, d10: 4, d12: 5, d20: 6 },
+          { d4: 6, d6: 5, d8: 4, d10: 3, d12: 2, d20: 1 },
+        ),
+      ).to.be.approximately(0.73643548532, EPSILON);
     });
   });
 

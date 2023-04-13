@@ -6,15 +6,27 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Typography,
 } from '@mui/material';
 import { ControlledInputProps } from 'types';
 import Value from 'types/Baseline';
 
 interface Props extends ControlledInputProps<Value> {}
 
+const Paragraph = ({ children }: React.PropsWithChildren) => (
+  <Typography
+    component="p"
+    variant="subtitle2"
+    maxWidth="80ch"
+    sx={{ textIndent: '4ch', maxWidth: '80ch' }}
+  >
+    {children}
+  </Typography>
+);
+
 const BaselineSelect: React.FC<Props> = ({ value, onChange }) => {
   return (
-    <Box>
+    <Box sx={{ flex: 1 }}>
       <FormControl component="fieldset">
         <FormLabel component="legend">Baseline Type</FormLabel>
         <RadioGroup
@@ -38,6 +50,20 @@ const BaselineSelect: React.FC<Props> = ({ value, onChange }) => {
           <FormControlLabel value="rogue" control={<Radio />} label="Rogue" />
         </RadioGroup>
       </FormControl>
+      <Paragraph>
+        The warlock baseline starts with 16 CHA, increases it to 18 at 4th level
+        and 20 at 8th level, and attacks using Eldritch Blast with Agonizing
+        Blast and Hex.
+      </Paragraph>
+      <Paragraph>
+        The fighter baseline starts with 16 DEX, the Archery Fighting Style, and
+        the Crossbow Expert feat. It takes the Sharpshooter feat at 4th level
+        and increases DEX to 18 at 6th level and 20 at 8th level.
+      </Paragraph>
+      <Paragraph>
+        The rogue baseline starts with 16 DEX and uses a rapier with Sneak
+        Attack. It increases DEX to 18 at 4th level and 20 at 8th level.
+      </Paragraph>
     </Box>
   );
 };

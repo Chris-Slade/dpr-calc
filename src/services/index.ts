@@ -3,6 +3,7 @@ export { default as applyAdditionalMods } from './applyAdditionalMods';
 export { default as averageMonsterAC } from './averageMonsterAC';
 export { default as calculateBaseline } from './calculateBaseline';
 export { default as calculateDamage } from './calculateDamage';
+export { default as chanceOfAtLeastOneHit } from './chanceOfAtLeastOneHit';
 export { default as chanceToCrit } from './chanceToCrit';
 export { default as chanceToCritMiss } from './chanceToCritMiss';
 export { default as chanceToHit } from './chanceToHit';

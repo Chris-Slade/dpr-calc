@@ -50,12 +50,8 @@ const Output: React.FC<{ title: string; rows: Row[] }> = ({ title, rows }) => (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell
-            colSpan={2}
-            variant="head"
-            sx={{ fontWeight: 'h3.fontWeight' }}
-          >
-            {title}
+          <TableCell colSpan={2} variant="head">
+            <Typography variant="subtitle1">{title}</Typography>
           </TableCell>
         </TableRow>
       </TableHead>
@@ -132,7 +128,7 @@ const Outputs: React.FC<Props> = ({
     {
       label: `Chance to hit AC ${targetAC}`,
       style: 'percent',
-      value: accuracy,
+      value: accuracy.hitChance,
     },
     {
       label: 'Baseline chance to hit',
@@ -142,7 +138,7 @@ const Outputs: React.FC<Props> = ({
     {
       label: 'Percentage of baseline',
       style: 'percent',
-      value: accuracy / baseline.accuracy,
+      value: accuracy.atLeastOneHit / baseline.accuracy,
     },
   ];
   const damageRows: Row[] = [
@@ -167,26 +163,30 @@ const Outputs: React.FC<Props> = ({
       value: damage / baseline.damage,
     },
   ];
+  const additionalRows: Row[] = [
+    {
+      label: 'Chance of at least one hit',
+      style: 'percent',
+      value: accuracy.atLeastOneHit,
+    },
+    {
+      label: 'Chance of at least one crit',
+      style: 'percent',
+      value: accuracy.atLeastOneCrit,
+    },
+    {
+      label: 'Chance that first hit is a crit',
+      style: 'percent',
+      value: accuracy.firstHitCrits,
+    },
+  ];
 
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap" gap={3}>
       <Output title="Accuracy" rows={accuracyRows} />
       <Output title="Damage" rows={damageRows} />
+      <Output title="Additional Probabilities" rows={additionalRows} />
       <BaselineSelect value={baselineType} onChange={setBaselineType} />
-      <Typography component="p" variant="subtitle2" maxWidth="80ch">
-        The warlock baseline starts with 16 CHA, increases it to 18 at 4th level
-        and 20 at 8th level, and attacks using Eldritch Blast with Agonizing
-        Blast and Hex.
-      </Typography>
-      <Typography component="p" variant="subtitle2" maxWidth="80ch">
-        The fighter baseline starts with 16 DEX, the Archery Fighting Style, and
-        the Crossbow Expert feat. It takes the Sharpshooter feat at 4th level
-        and increases DEX to 18 at 6th level and 20 at 8th level.
-      </Typography>
-      <Typography component="p" variant="subtitle2" maxWidth="80ch">
-        The rogue baseline starts with 16 DEX and uses a rapier with Sneak
-        Attack. It increases DEX to 18 at 4th level and 20 at 8th level.
-      </Typography>
     </Box>
   );
 };

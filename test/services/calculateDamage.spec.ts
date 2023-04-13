@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { applyAdditionalMods, calculateDamage } from 'services';
-import { EPSILON } from 'test/helpers/epsilon';
+import { EPSILON } from 'test/helpers';
 import { AdditionalModValues, Dice } from 'types';
 
 const DEFAULT_ADDITIONAL_MODS: Readonly<AdditionalModValues> = {
@@ -108,6 +108,37 @@ describe('full damage calculation', () => {
         critBonusDice: { ...DEFAULT_DICE, d12: 2 },
       }).damage,
     ).to.be.approximately(39.345, EPSILON);
+  });
+
+  it('9th-level blessed raging zealot barbarian attacking recklessly with GWM and a greataxe', () => {
+    const [attackMods, damageMods] = applyAdditionalMods(
+      {
+        ...DEFAULT_ADDITIONAL_MODS,
+        powerAttack: true,
+        rage: true,
+      },
+      5 + 4,
+      5,
+      9,
+    );
+
+    expect(
+      calculateDamage({
+        targetAC: 16,
+        attacks: 2,
+        attackMods,
+        advantage: 'advantage',
+        bonusDice: { ...DEFAULT_DICE, d4: 1 },
+        penaltyDice: DEFAULT_DICE,
+        critThreshold: 20,
+        damageMods,
+        damageDice: { ...DEFAULT_DICE, d12: 1 },
+        firstHitBonus: 4,
+        firstHitBonusDice: { ...DEFAULT_DICE, d6: 1 },
+        critBonus: 0,
+        critBonusDice: { ...DEFAULT_DICE, d12: 1 },
+      }).damage,
+    ).to.be.approximately(50.18197421875, EPSILON);
   });
 
   it('15th-level paladin, blessed, IDS with a +3 greatsword', () => {
