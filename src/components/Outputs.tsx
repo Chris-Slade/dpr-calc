@@ -138,7 +138,7 @@ const Outputs: React.FC<Props> = ({
     {
       label: 'Percentage of baseline',
       style: 'percent',
-      value: accuracy.atLeastOneHit / baseline.accuracy,
+      value: accuracy.hitChance / baseline.accuracy,
     },
   ];
   const damageRows: Row[] = [
